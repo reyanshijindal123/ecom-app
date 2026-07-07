@@ -1,9 +1,5 @@
 'use client';
 
-/**
- * components/ui/ComingSoonModal.tsx
- * Wraps any element. On click → shows a "Coming Soon" modal with email capture.
- */
 
 import { useState , useEffect} from 'react';
 import { X, Rocket, Bell, CheckCircle } from 'lucide-react';
@@ -26,23 +22,22 @@ export function ComingSoonModal({ children, featureName = 'This feature' }: Comi
 
   const scrollY = window.scrollY;
 
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
   document.body.style.position = "fixed";
   document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
   document.body.style.width = "100%";
 
   return () => {
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
     document.body.style.position = "";
     document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
     document.body.style.width = "";
 
     window.scrollTo(0, scrollY);
   };
 }, [open]);
-
   const handleNotify = () => {
     if (!valid) return;
     setSubmitted(true);

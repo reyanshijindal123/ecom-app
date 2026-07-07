@@ -191,7 +191,7 @@ function CartItems() {
   );
 }
 
-/* ── Page ──────────────────────────────────────────────────────────────────── */
+/* ── Page  */
 function CartContent() {
   const items = useCartStore((s) => s.items);
   // When empty: ONLY show the empty state, nothing else

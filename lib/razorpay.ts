@@ -64,12 +64,7 @@ const PROCESSING_DELAY = 2200;
 /** Probability that the payment "fails" (0 = never, 0.15 = 15%) */
 const FAILURE_RATE = 0;
 
-// ─── Core function ────────────────────────────────────────────────────────────
-/**
- * Simulates opening the Razorpay checkout sheet and processing payment.
- * Returns a resolved RazorpayResponse on success.
- * Throws RazorpayDismissedError | RazorpayFailedError on failure.
- */
+
 export async function processRazorpayPayment(
   options: RazorpayOptions,
   method: RazorpayMethod
