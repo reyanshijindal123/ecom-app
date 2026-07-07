@@ -15,7 +15,7 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/products', label: 'Products' },
   { href: '/wishlist', label: 'Wishlist' },
-  { href: '/account', label: 'Orders' },
+  { href: '/orders', label: 'Orders' },
 ];
 
 /* ─── User Avatar ──────────────────────────────────────────────────────────── */
@@ -59,7 +59,7 @@ function UserDropdown() {
   };
 
   const menuLinks = [
-    { href: '/account', icon: Package, label: 'My Orders', desc: 'Track your orders' },
+    { href: '/orders', icon: Package, label: 'My Orders', desc: 'Track your orders' },
     { href: '/wishlist', icon: Bookmark, label: 'Wishlist', desc: 'Your saved items' },
     { href: '/account?tab=profile', icon: Settings, label: 'Account Settings', desc: 'Edit profile & preferences' },
   ];
