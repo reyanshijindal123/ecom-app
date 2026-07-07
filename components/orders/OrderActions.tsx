@@ -43,8 +43,11 @@ export default function OrderActions({
     alert("Cancel Order feature coming soon.");
   };
 
-  return (
-    <div className="mt-8 flex flex-wrap gap-4">
+ return (
+  <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center">
+
+    {/* Left Side Buttons */}
+{/*     <div className="flex flex-wrap gap-4">
 
       <button
         onClick={buyAgain}
@@ -56,7 +59,7 @@ export default function OrderActions({
 
       <button
         onClick={trackOrder}
-        className="flex items-center gap-2 rounded-xl border px-5 py-3 hover:bg-gray-100 dark:hover:bg-zinc-800"
+        className="flex items-center gap-2 rounded-xl px-5 py-3 hover:bg-pink-100 dark:hover:bg-zinc-800"
       >
         <Truck size={18} />
         Track Order
@@ -64,21 +67,25 @@ export default function OrderActions({
 
       <button
         onClick={downloadInvoice}
-        className="flex items-center gap-2 rounded-xl border px-5 py-3 hover:bg-gray-100 dark:hover:bg-zinc-800"
+        className="flex items-center gap-2 rounded-xl px-5 py-3 hover:bg-pink-100 dark:hover:bg-zinc-800"
       >
         <Download size={18} />
         Download Invoice
       </button>
 
-      {status !== "delivered" && status !== "cancelled" && (
-        <button
-          onClick={cancelOrder}
-          className="flex items-center gap-2 rounded-xl border border-red-500 px-5 py-3 text-red-500 hover:bg-red-50"
-        >
-          <XCircle size={18} />
-          Cancel Order
-        </button>
-      )}
-    </div>
-  );
+    </div> */}
+
+    {/* Right Side Button */}
+    {status !== "delivered" && status !== "cancelled" && (
+      <button
+        onClick={cancelOrder}
+        className=" mb-6 mt-2 flex items-center gap-2 rounded-xl border border-red-500 px-5 py-3 text-red-500 hover:bg-red-50"
+      >
+        <XCircle size={18} />
+        Cancel Order
+      </button>
+    )}
+
+  </div>
+ );
 }

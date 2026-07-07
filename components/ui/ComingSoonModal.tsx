@@ -1,7 +1,7 @@
 'use client';
 
 
-import { useState , useEffect} from 'react';
+import { useState , useEffect,useRef} from 'react';
 import { X, Rocket, Bell, CheckCircle } from 'lucide-react';
 import { btn, input, modal, iconChip, text } from '@/lib/styles';
 import { cn } from '@/lib/utils';
@@ -15,28 +15,27 @@ export function ComingSoonModal({ children, featureName = 'This feature' }: Comi
   const [open, setOpen]           = useState(false);
   const [email, setEmail]         = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const scrollYRef = useRef(0);
 
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
  useEffect(() => {
-  if (!open) return;
+  if (open) {
+    scrollYRef.current = window.scrollY;
 
-  const scrollY = window.scrollY;
-
-  document.body.style.position = "fixed";
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = "0";
-  document.body.style.right = "0";
-  document.body.style.width = "100%";
-
-  return () => {
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollYRef.current}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  } else {
     document.body.style.position = "";
     document.body.style.top = "";
     document.body.style.left = "";
     document.body.style.right = "";
     document.body.style.width = "";
 
-    window.scrollTo(0, scrollY);
-  };
+    window.scrollTo(0, scrollYRef.current);
+  }
 }, [open]);
   const handleNotify = () => {
     if (!valid) return;

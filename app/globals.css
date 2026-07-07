@@ -15,9 +15,9 @@ body {
 }
 
 /* Smooth scroll */
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
 
 /* Line clamp utilities */
 .line-clamp-2 {

@@ -8,6 +8,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 import WishlistButton from '@/components/product/WishlistButton';
 import { INR } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/store';
+import {toast} from 'sonner';
+
 
 interface ProductCardProps {
   product: Product;
@@ -21,14 +25,29 @@ export default function ProductCard({ product }: ProductCardProps) {
   const inCartQty = cartItems.find((i) => i.id === product.id)?.quantity ?? 0;
   const isInCart = inCartQty > 0;
 
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (justAdded) return;
-    addItem(product);
-    setJustAdded(true);
-    setTimeout(() => setJustAdded(false), 2000);
-  };
+  const router = useRouter();
+const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+ const handleAdd = (e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (!isAuthenticated) {
+    toast.error('Please login first!', {
+      description: 'Please login to add products to your cart.',
+      action:{
+        label: 'Login',
+        onClick: () => router.push('/login'),
+      },
+    });
+    return;
+  }
+  if (justAdded) return;
+
+  addItem(product);
+  setJustAdded(true);
+  setTimeout(() => setJustAdded(false), 2000);
+};
 
   return (
     <Link href={`/products/${product.id}`} className="group block">

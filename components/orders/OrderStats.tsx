@@ -47,7 +47,7 @@ export default function OrderStats({ orders }: Props) {
 
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
       {stats.map((stat) => {
         const Icon = stat.icon;

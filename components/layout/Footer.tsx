@@ -13,13 +13,15 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-full bg-[#970747] flex items-center justify-center">
                 <ShoppingBag size={16} className="text-white" />
               </div>
-              <span className="text-xl font-bold text-white">VelvetStore</span>
+              <span className="text-xl font-bold text-white">
+                VelvetStore
+              </span>
             </div>
+
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-              Curated fashion for the bold. Discover premium pieces that define your
-              style, delivered to your door.
+              Curated fashion for the bold. Discover premium pieces that define
+              your style, delivered to your door.
             </p>
-          
           </div>
 
           {/* Quick Links */}
@@ -27,13 +29,26 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-widest text-[#970747] mb-4">
               Shop
             </h3>
+
             <ul className="space-y-2">
               {[
                 { label: "All Products", href: "/products" },
-                { label: "Men's Clothing", href: "/products?category=men's+clothing" },
-                { label: "Women's Clothing", href: "/products?category=women's+clothing" },
-                { label: "Electronics", href: "/products?category=electronics" },
-                { label: "Jewelery", href: "/products?category=jewelery" },
+                {
+                  label: "Men's Clothing",
+                  href: "/products?category=men's+clothing",
+                },
+                {
+                  label: "Women's Clothing",
+                  href: "/products?category=women's+clothing",
+                },
+                {
+                  label: "Electronics",
+                  href: "/products?category=electronics",
+                },
+                {
+                  label: "Jewelery",
+                  href: "/products?category=jewelery",
+                },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -52,22 +67,27 @@ export default function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-widest text-[#970747] mb-4">
               Help
             </h3>
+
             <ul className="space-y-2">
-  {["FAQ", "Shipping Policy", "Returns", "Track Order", "Contact Us"].map(
-    (item) => (
-      <li key={item}>
-        <ComingSoonModal featureName={item}>
-          <button
-            className="text-gray-400 text-sm hover:text-white transition-colors"
-          >
-            {item}
-          </button>
-        </ComingSoonModal>
-      </li>
-    )
-  )}
-</ul>
-            
+              {[
+                "FAQ",
+                "Shipping Policy",
+                "Returns",
+                "Track Order",
+                "Contact Us",
+              ].map((item) => (
+                <li key={item}>
+                  <ComingSoonModal featureName={item}>
+                    <button
+                      type="button"
+                      className="text-gray-400 text-sm hover:text-white transition-colors"
+                    >
+                      {item}
+                    </button>
+                  </ComingSoonModal>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
@@ -75,6 +95,7 @@ export default function Footer() {
           <p className="text-gray-500 text-xs">
             © {new Date().getFullYear()} VelvetStore. All rights reserved.
           </p>
+
           <p className="text-gray-600 text-xs">
             Powered by FakeStore API · Built with Next.js
           </p>

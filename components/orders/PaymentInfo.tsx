@@ -8,7 +8,7 @@ interface PaymentInfoProps {
 
 export default function PaymentInfo({ total }: PaymentInfoProps) {
   return (
-    <div className="rounded-2xl border bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="rounded-2xl border bg-white p-6 mb-6 mt-2 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <div className="mb-5 flex items-center gap-3">
         <div className="rounded-full bg-pink-100 p-2">
           <CreditCard className="h-5 w-5 text-pink-600" />

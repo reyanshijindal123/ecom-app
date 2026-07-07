@@ -42,7 +42,6 @@ function EmptyCart() {
 function CartItems() {
   const { items, updateQuantity, clearCart, totalItems, totalPrice } = useCartStore();
   const { setDeleteConfirmId } = useUIStore();
-
   const subtotal = totalPrice();
   const shipping = subtotal * 83 > 3999 ? 0 : 99;
   const tax = subtotal * 83 * 0.18;
