@@ -7,7 +7,7 @@ import {
   Truck, Shield, Building, Smartphone, CreditCard,
   Wallet, AlertCircle, Loader2,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { INR, getDeliveryDate } from '@/lib/utils';
@@ -18,7 +18,7 @@ import {
   type RazorpayMethod, type RazorpayResponse,
 } from '@/lib/razorpay';
 import { cn } from '@/lib/utils';
-
+import { getAddressFromPincode } from '@/lib/pincode';
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Step = 'address' | 'payment' | 'success';
 
@@ -128,13 +128,13 @@ function AddressStep({
           </Field>
         </div>
         <Field label="City">
-          <input className={input.base} value={value.city} onChange={set('city')} placeholder="Mumbai" />
+          <input className={input.base} value={value.city} readOnly placeholder="city" />
         </Field>
         <Field label="State">
-          <input className={input.base} value={value.state} onChange={set('state')} placeholder="Maharashtra" />
+          <input className={input.base} value={value.state} readOnly placeholder="State" />
         </Field>
         <Field label="PIN Code">
-          <input className={input.base} value={value.pincode} onChange={set('pincode')} placeholder="400001" maxLength={6} />
+          <input className={input.base} value={value.pincode} onChange={set('pincode')} placeholder="400001" maxLength={6} inputMode="numeric"/>
         </Field>
       </div>
 
@@ -448,7 +448,23 @@ function CheckoutContent() {
     phone: '',
     line1: '', line2: '', city: '', state: '', pincode: '',
   });
+useEffect(() => {
+  async function fetchAddress() {
+    if (address.pincode.length !== 6) return;
 
+    const result = await getAddressFromPincode(address.pincode);
+
+    if (result) {
+      setAddress((prev) => ({
+        ...prev,
+        city: result.city,
+        state: result.state,
+      }));
+    }
+  }
+
+  fetchAddress();
+}, [address.pincode]);
   // Payment state
   const [payMethod, setPayMethod] = useState<RazorpayMethod>('upi');
   const [upiApp, setUpiApp] = useState('PhonePe');

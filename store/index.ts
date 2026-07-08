@@ -28,10 +28,25 @@ export const useCartStore = create<CartStore>()(
         });
       },
       removeItem: (id) => set((state) => ({ items: state.items.filter((i) => i.id !== id) })),
-      updateQuantity: (id, quantity) => {
-        if (quantity <= 0) { get().removeItem(id); return; }
-        set((state) => ({ items: state.items.map((i) => (i.id === id ? { ...i, quantity } : i)) }));
-      },
+     updateQuantity: (id, quantity) => {
+      
+  const isAuthenticated = useAuthStore.getState().isAuthenticated;
+
+  if (!isAuthenticated) {
+    return;
+  }
+
+  if (quantity <= 0) {
+    get().removeItem(id);
+    return;
+  }
+
+  set((state) => ({
+    items: state.items.map((i) =>
+      i.id === id ? { ...i, quantity } : i
+    ),
+  }));
+},
       clearCart: () => set({ items: [] }),
       totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
       totalPrice: () => get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
