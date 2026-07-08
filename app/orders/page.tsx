@@ -42,58 +42,51 @@ export default function OrdersPage() {
 
   return (
 
-    <div className="mx-auto max-w-7xl px-5 py-10">
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto max-w-7xl px-5 py-10">
 
 
       {/* Header */}
-      <div className=" flex items-center gap-3">
+      <div className="mb-8">
+  <div className="flex items-center gap-3">
+    <Package className="h-9 w-10 text-[#970747]" />
 
-        <Package className="h-8 w-8 text-pink-600" />
+    <div>
+      <h1 className="text-2xl font-bold text-gray-900">
+        My Orders
+      </h1>
 
-        <div>
+    
+    </div>
+  </div>
+</div>
 
-          <h1 className="text-4xl font-bold">
-            My Orders
-          </h1>
 
-          <p className="text-gray-500 mt-1">
-            Track and manage your purchases
-          </p>
 
-        </div>
-
+      <div className="mb-6">
+      <OrderStats orders={orders} />
       </div>
 
 
 
-      {/* Stats */}
-      <OrderStats orders={orders} />
-
-
-
       {/* Filters */}
+      <div className="mb-6">
       <OrderFilter
         active={filter}
         setActive={setFilter}
       />
+      </div>
 
 
 
       {/* Search */}
       <div className="mb-8">
-
-        <input
-          value={search}
-          onChange={(e)=>setSearch(e.target.value)}
-          placeholder="Search by order id or product name..."
-          className="
-          w-full rounded-xl border 
-          px-5 py-3
-          outline-none
-          focus:ring-2
-          focus:ring-pink-500
-          "
-        />
+<input
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  placeholder="Search by order id or product name..."
+  className="w-full rounded-2xl border border-gray-200 bg-white px-5 py-4 shadow-sm outline-none focus:border-[#970747] focus:ring-2 focus:ring-pink-100 transition"/>
+        
 
       </div>
 
@@ -148,7 +141,7 @@ export default function OrdersPage() {
       ) : (
 
 
-        <div className="space-y-6">
+        <div className="space-y-8">
 
           {filteredOrders.map((order)=>(
 
@@ -166,6 +159,7 @@ export default function OrdersPage() {
       )}
 
 
+    </div>
     </div>
 
   );

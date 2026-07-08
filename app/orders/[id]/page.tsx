@@ -2,39 +2,37 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useOrderStore, useCartStore } from "@/store";
-import Image from "next/image";
-import ShippingAddress from "@/components/orders/ShippingAddress";
-import PaymentInfo from "@/components/orders/PaymentInfo";
-import OrderSummary from "@/components/orders/OrderSummary";
-import OrderActions from "@/components/orders/OrderActions";
+import { INR } from "@/lib/utils";
+
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Package,
-  MapPin,
-  CreditCard,
-  ShoppingCart,
-  XCircle,
-} from "lucide-react";
+import Image from "next/image";
+
+import { ArrowLeft, Package } from "lucide-react";
+
+import StatusBadge from "@/components/orders/StatusBadge";
+import OrderTimeline from "@/components/orders/OrderTimeline";
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
+
   const router = useRouter();
 
   const orders = useOrderStore((state) => state.orders);
+
   const addItem = useCartStore((state) => state.addItem);
 
   const order = orders.find((o) => o.id === id);
 
   if (!order) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center">
-        <Package size={80} className="text-gray-300" />
+      <div className="min-h-[70vh] flex flex-col justify-center items-center">
+        <Package size={70} className="text-gray-300" />
+
         <h2 className="text-2xl font-bold mt-4">Order Not Found</h2>
 
         <Link
           href="/orders"
-          className="mt-6 bg-pink-600 text-white px-6 py-3 rounded-xl"
+          className="mt-6 rounded-xl bg-[#970747] px-6 py-3 text-white"
         >
           Back to Orders
         </Link>
@@ -43,96 +41,272 @@ export default function OrderDetailsPage() {
   }
 
   const buyAgain = () => {
-    order.items.forEach((item) => addItem(item, item.size));
+    order.items.forEach((item) => {
+      addItem(item, item.size);
+    });
+
     router.push("/cart");
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-5 py-10">
+    <div className="max-w-7xl mx-auto px-5 py-10">
+      {/* Back Button */}
+
       <button
         onClick={() => router.back()}
-        className="flex items-center gap-2 text-pink-600 font-semibold mb-8"
+        className="flex items-center gap-2 text-[#970747] font-semibold"
       >
         <ArrowLeft size={18} />
         Back
       </button>
+      {/* Header Card */}
 
-      <div className="bg-white rounded-2xl shadow-lg border p-8">
-        <div className="flex justify-between flex-wrap gap-4">
+      <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h1 className="text-3xl font-bold">
-              Order <span className="text-sm text-black-500">#{order.id}</span>
-            </h1>
-            <p className="text-gray-500 mb-6 mt-2">Ordered on {order.date}</p>
+            {/*  <p className="text-sm font-semibold uppercase tracking-wide text-[#970747]">
+
+              Order Details
+
+            </p>
+ */}
+            <div className="mb-2">
+              <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-[#970747]">
+                Order Details
+              </p>
+
+              <h1 className="mt-2 text-xl font-semibold tracking-tight text-gray-900">
+                Order <span className="text-[#970747]">#{order.id}</span>
+              </h1>
+            </div>
+
+            {/*  <p className="mt-4 text-gray-500">
+
+              Ordered on
+
+              <span className="ml-2 font-semibold text-gray-800">
+
+                {order.orderDate}
+
+              </span>
+
+            </p>
+ */}
+            {/* 
+            <p className="mt-2 text-green-600">
+
+              Expected Delivery
+
+              <span className="ml-2 font-bold">
+
+                {order.estimatedDelivery}
+
+              </span>
+
+            </p> */}
           </div>
+          {/* <div className="flex flex-col items-start lg:items-end gap-4">
 
-          <span
-            className={`px-5 py-2 rounded-full font-semibold
-            ${
-              order.status === "processing"
-                ? "bg-yellow-100 text-yellow-700"
-                : order.status === "shipped"
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-green-100 text-green-700"
-            }`}
-          >
-            {order.status.toUpperCase()}
-          </span>
+  <StatusBadge status={order.status} />
+
+  <p className="text-sm text-gray-500">
+    Payment :
+    <span className="ml-2 font-semibold">
+      {order.paymentStatus}
+    </span>
+  </p>
+
+  <div className="flex gap-3 flex-wrap">
+
+    <button
+      onClick={buyAgain}
+      className="rounded-xl bg-[#970747] px-5 py-2 text-white hover:bg-[#7a0538]"
+    >
+      Buy Again
+    </button>
+
+    <button
+      className="rounded-xl border border-gray-300 px-5 py-2 hover:bg-gray-100"
+    >
+      Download Invoice
+    </button>
+
+  </div>
+
+</div> */}
         </div>
+      </div>
+      {/* Timeline */}
+      {/* Ordered Items */}
 
-        {/* <hr className="my-8" /> */}
+      <div
+       
+      >
+        <div className="flex items-center justify-between my-8">
+          <h2 className="text-2xl font-bold">Ordered Items</h2>
 
-        <h2 className="text-2xl font-bold mt-2 mb-6">Ordered Items</h2>
+          <p className="text-sm text-black-500">{order.items.length} Item(s)</p>
+        </div>
 
         <div className="space-y-6">
           {order.items.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col mt-2 mb-6 md:flex-row gap-5 border rounded-xl p-4"
+              className="flex flex-col md:flex-row gap-6 rounded-2xl border border-black-100 p-5 "
             >
-              <div className="relative w-28 h-28 bg-gray-100 rounded-xl">
+              {/* Image */}
+
+              <div className="relative h-32 w-32 shrink-0 rounded-2xl bg-pink-50">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  className="object-contain p-3"
+                  className="object-contain p-4"
                 />
               </div>
 
+              {/* Product */}
+
               <div className="flex-1">
-                <h3 className="font-semibold text-lg">{item.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {item.title}
+                </h3>
 
-                <p className="text-gray-500 mt-2">₹{item.price}</p>
+                <div className="mt-3 flex flex-wrap gap-6 text-black-500 text-sm">
+                  <p>
+                    Qty :
+                    <span className="ml-2 font-semibold text-gray-900">
+                      {item.quantity}
+                    </span>
+                  </p>
 
-                <p className="text-gray-500">Quantity : {item.quantity}</p>
+                  {item.size && (
+                    <p>
+                      Size :
+                      <span className="ml-2 font-semibold text-gray-900">
+                        {item.size}
+                      </span>
+                    </p>
+                  )}
+                </div>
 
-                {item.size && (
-                  <p className="text-gray-500">Size : {item.size}</p>
-                )}
+                <p className="mt-5 text-3xl font-black text-[#970747]">
+                  {INR(item.price)}
+                </p>
+
+                <div className="mt-6 flex gap-3">
+                  <button
+                    onClick={buyAgain}
+                    className="rounded-xl bg-[#970747] px-5 py-2.5 text-white hover:bg-[#7a0538]"
+                  >
+                    Buy Again
+                  </button>
+
+                  <button className="rounded-xl border border-gray-300 px-5 py-2.5 hover:bg-gray-50">
+                    Write Review
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* <hr className="my-8" /> */}
-
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
-          <ShippingAddress address={order.address} />
-
-          <PaymentInfo total={order.total} />
-        </div>
-        <div className="mt-8">
-          <OrderSummary
-            subtotal={order.total}
-            shipping={0}
-            tax={0}
-            discount={0}
-          />
-        </div>
-
-        {/* <hr className="my-8" /> */}
-        <OrderActions items={order.items} status={order.status} />
       </div>
-    </div>
+{/* 
+      <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
+        <h2 className="mb-8 text-2xl font-bold">Order Tracking</h2>
+
+        <OrderTimeline status={order.status} /> */}
+        {/* Bottom Cards */}
+
+        {/* <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          
+
+          <div className="rounded-3xl border border-black-200 bg-white p-6 shadow-sm">
+            <h2 className="mb-5 text-xl font-bold">Delivery Address</h2>
+
+            <div className="space-y-2 text-gray-600">
+              <p className="font-semibold text-gray-900">
+                {order.address.name}
+              </p>
+
+              <p>{order.address.street}</p>
+
+              <p>
+                {order.address.city}, {order.address.state}
+              </p>
+
+              <p>{order.address.pincode}</p>
+
+              <p>{order.address.phone}</p>
+            </div>
+          </div>
+
+      
+
+          <div className="rounded-3xl border border-black-200 bg-white p-6 shadow-sm">
+            <h2 className="mb-5 text-xl font-bold">Payment Details</h2>
+
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm text-gray-500">Method</p>
+
+                <p className="font-semibold">{order.paymentMethod}</p>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-500">Status</p>
+
+                <span className="rounded-full bg-green-100 px-3 py-1 text-green-700 font-semibold">
+                  {order.paymentStatus}
+                </span>
+              </div>
+            </div>
+          </div>
+
+  
+
+          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="mb-5 text-xl font-bold">Price Details</h2>
+
+            <div className="space-y-4">
+              <div className="flex justify-between">
+                <span>Subtotal</span>
+
+                <span>{INR(order.subtotal)}</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>Shipping</span>
+
+                <span>{INR(order.shipping)}</span>
+              </div>
+
+              <div className="flex justify-between">
+                <span>GST</span>
+
+                <span>{INR(order.tax)}</span>
+              </div>
+
+              <hr />
+
+              <div className="flex justify-between text-lg font-bold">
+                <span>Total</span>
+
+                <span>{INR(order.total)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+ */}
+
+
+
+
+
+        
+      </div>
+    
   );
 }

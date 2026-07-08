@@ -51,6 +51,17 @@ const PAYMENT_METHODS: PaymentMethod[] = [
 const UPI_APPS = ['PhonePe', 'Google Pay', 'Paytm', 'BHIM'] as const;
 
 const STEPS: Step[] = ['address', 'payment', 'success'];
+const [billingAddress, setBillingAddress] = useState<AddressForm>({
+  fullName: '',
+  phone: '',
+  line1: '',
+  line2: '',
+  city: '',
+  state: '',
+  pincode: '',
+});
+
+const [sameBilling, setSameBilling] = useState(true);
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -94,10 +105,18 @@ function Field({ label: lbl, children }: { label: string; children: React.ReactN
 /** Address step */
 function AddressStep({
   value,
+  billing,
+  onBillingChange,
+  sameBilling,
+  setSameBilling,
   onChange,
   onNext,
 }: {
   value: AddressForm;
+  billing: AddressForm;
+  onBillingChange:(v: AddressForm)=> void;
+  sameBilling: boolean;
+  setSameBilling:(v: boolean)=> void;
   onChange: (v: AddressForm) => void;
   onNext: () => void;
 }) {

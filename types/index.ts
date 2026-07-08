@@ -1,65 +1,52 @@
-export interface Product {
+export type OrderStatus =
+  | "Processing"
+  | "Packed"
+  | "Shipped"
+  | "Out for Delivery"
+  | "Delivered"
+  | "Cancelled";
+
+export interface OrderItem {
   id: number;
   title: string;
-  price: number;
-  description: string;
-  category: string;
   image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-}
-
-export interface CartItem extends Product {
+  price: number;
   quantity: number;
+  category?: string;
   size?: string;
-}
-
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  name: {
-    firstname: string;
-    lastname: string;
-  };
-}
-
-export type SortOption = 'price-asc' | 'price-desc' | 'rating-desc' | 'title-asc';
-
-export interface FilterState {
-  category: string;
-  search: string;
-  sort: SortOption;
-  minPrice: number;
-  maxPrice: number;
-}
-
-export interface Review {
-  id: string;
-  productId: number;
-  author: string;
-  rating: number;
-  comment: string;
-  date: string;
 }
 
 export interface Order {
   id: string;
-  items: CartItem[];
-  total: number;
-  date: string;
-  status: 'delivered' | 'processing' | 'shipped';
-  address: Address;
-}
 
-export interface Address {
-  fullName: string;
-  line1: string;
-  line2?: string;
-  city: string;
-  state: string;
-  pincode: string;
-  phone: string;
+  orderDate: string;
+
+  estimatedDelivery: string;
+
+  deliveredDate?: string;
+
+  status: OrderStatus;
+
+  paymentMethod: string;
+
+  paymentStatus: "Paid" | "Pending";
+
+  subtotal: number;
+
+  shipping: number;
+
+  tax: number;
+
+  total: number;
+
+  address: {
+    name: string;
+    phone: string;
+    street: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+
+  items: OrderItem[];
 }

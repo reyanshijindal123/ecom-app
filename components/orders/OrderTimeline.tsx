@@ -1,120 +1,139 @@
+"use client";
+
 import {
   PackageCheck,
   Package,
   Truck,
   Bike,
   CheckCircle2,
+  XCircle,
 } from "lucide-react";
+import { OrderStatus } from "@/types";
 
 interface Props {
-  status:
-    | "processing"
-    | "packed"
-    | "shipped"
-    | "out-for-delivery"
-    | "delivered"
-    | "cancelled";
+  status: OrderStatus;
 }
 
 const steps = [
   {
-    key: "processing",
-    label: "Order Placed",
+    title: "Order Placed",
+    value: "Processing",
     icon: PackageCheck,
   },
   {
-    key: "packed",
-    label: "Packed",
+    title: "Packed",
+    value: "Packed",
     icon: Package,
   },
   {
-    key: "shipped",
-    label: "Shipped",
+    title: "Shipped",
+    value: "Shipped",
     icon: Truck,
   },
   {
-    key: "out-for-delivery",
-    label: "Out for Delivery",
+    title: "Out for Delivery",
+    value: "Out for Delivery",
     icon: Bike,
   },
   {
-    key: "delivered",
-    label: "Delivered",
+    title: "Delivered",
+    value: "Delivered",
     icon: CheckCircle2,
   },
 ];
 
-const statusIndex = {
-  processing: 0,
-  packed: 1,
-  shipped: 2,
-  "out-for-delivery": 3,
-  delivered: 4,
-  cancelled: -1,
+const statusIndex: Record<OrderStatus, number> = {
+  Processing: 0,
+  Packed: 1,
+  Shipped: 2,
+  "Out for Delivery": 3,
+  Delivered: 4,
+  Cancelled: -1,
 };
 
 export default function OrderTimeline({ status }: Props) {
-  const currentStep = statusIndex[status];
-
-  if (status === "cancelled") {
+  if (status === "Cancelled") {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-center">
-        <p className="font-semibold text-red-600">
-          ❌ This order has been cancelled.
-        </p>
+      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 flex items-center gap-3">
+        <XCircle className="text-red-600" />
+        <div>
+          <h3 className="font-semibold text-red-700">
+            Order Cancelled
+          </h3>
+
+          <p className="text-sm text-red-500">
+            This order has been cancelled.
+          </p>
+        </div>
       </div>
     );
   }
 
+  const current = statusIndex[status];
+
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4">
-      {steps.map((step, index) => {
-        const Icon = step.icon;
+    <div className="bg-white rounded-3xl border p-8 shadow-sm">
 
-        const completed = index <= currentStep;
+      <h2 className="font-bold text-lg mb-8">
+        Order Tracking
+      </h2>
 
-        return (
-          <div
-            key={step.key}
-            className="flex flex-1 min-w-[110px] items-center"
-          >
-            <div className="flex flex-col items-center flex-1">
-              <div
-                className={`flex h-12 w-12 items-center justify-center rounded-full transition
+      <div className="flex justify-between items-center">
+
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+
+          const completed = index <= current;
+
+          return (
+            <div
+              key={step.value}
+              className="flex items-center flex-1"
+            >
+              <div className="flex flex-col items-center">
+
+                <div
+                  className={`h-14 w-14 rounded-full flex items-center justify-center transition
+
                   ${
                     completed
                       ? "bg-green-500 text-white"
                       : "bg-gray-200 text-gray-500"
                   }`}
-              >
-                <Icon size={22} />
-              </div>
+                >
+                  <Icon size={24} />
+                </div>
 
-              <p
-                className={`mt-2 text-center text-sm font-medium
+                <p
+                  className={`mt-3 text-sm text-center font-medium
+
                   ${
                     completed
                       ? "text-green-600"
                       : "text-gray-500"
                   }`}
-              >
-                {step.label}
-              </p>
-            </div>
+                >
+                  {step.title}
+                </p>
 
-            {index !== steps.length - 1 && (
-              <div
-                className={`h-1 flex-1 rounded
+              </div>
+
+              {index !== steps.length - 1 && (
+                <div
+                  className={`h-1 flex-1 mx-2 rounded-full
+
                   ${
-                    index < currentStep
+                    index < current
                       ? "bg-green-500"
-                      : "bg-gray-300"
+                      : "bg-gray-200"
                   }`}
-              />
-            )}
-          </div>
-        );
-      })}
+                />
+              )}
+            </div>
+          );
+        })}
+
+      </div>
     </div>
   );
 }

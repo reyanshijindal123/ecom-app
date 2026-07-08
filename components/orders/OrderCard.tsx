@@ -16,16 +16,16 @@ export default function OrderCard({ order }: Props) {
   const remainingItems = order.items.length - 3;
 
   return (
-    <div className="rounded-2xl border bg-white p-6 mb-6 mt-2 shadow-sm transition hover:shadow-lg dark:bg-zinc-900 dark:border-zinc-800">
+    <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm hover:shadow-xl transition-all duration-300">
       <div className="flex flex-col gap-6 md:flex-row">
         {/* Product Images Preview */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {previewItems.map((item) => (
             <Link
               key={item.id}
               href={`/products/${item.id}`}
-              className="relative h-20 w-20 overflow-hidden rounded-xl bg-gray-100 block"
-            >
+              className="relative h-20 w-20 rounded-xl border border-gray-200 bg-gray-50 overflow-hidden">
+            
               <Image
                 src={item.image}
                 alt={item.title}
@@ -58,8 +58,8 @@ export default function OrderCard({ order }: Props) {
             <div>
               <Link
                 href={`/products/${firstItem.id}`}
-                className="text-lg font-semibold line-clamp-2 hover:text-pink-600 transition"
-              >
+                className="text-xl font-bold text-gray-900 hover:text-[#970747] transition">
+              
                 {firstItem.title}
               </Link>
             </div>
@@ -67,7 +67,7 @@ export default function OrderCard({ order }: Props) {
             <StatusBadge status={order.status} />
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <CalendarDays size={16} />
               <span>{order.date}</span>
@@ -86,8 +86,8 @@ export default function OrderCard({ order }: Props) {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href={`/orders/${order.id}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-pink-600 px-5 py-2.5 text-white transition hover:bg-pink-700"
-            >
+              className="inline-flex items-center gap-2 rounded-xl bg-[#970747] px-6 py-3 font-medium text-white hover:bg-[#7a0538] transition">
+            
               View Details
               <ArrowRight size={16} />
             </Link>
