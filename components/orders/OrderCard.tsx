@@ -14,6 +14,7 @@ export default function OrderCard({ order }: Props) {
   const firstItem = order.items[0];
   const previewItems = order.items.slice(0, 3);
   const remainingItems = order.items.length - 3;
+  const orderDate = (order as any).createdAt ?? (order as any).date ?? "Unknown date";
 
   return (
     <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm hover:shadow-xl transition-all duration-300">
@@ -70,7 +71,7 @@ export default function OrderCard({ order }: Props) {
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <CalendarDays size={16} />
-              <span>{order.date}</span>
+              <span>{orderDate}</span>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-500">

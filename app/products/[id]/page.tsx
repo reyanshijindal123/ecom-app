@@ -125,8 +125,8 @@ export default function ProductDetailPage() {
               <button onClick={handleShare} className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center text-gray-500 hover:text-[#970747] transition-colors">
                 <Share2 size={14} />
               </button>
-              <WishlistButton productId={product.id} variant="card" />
-            </div>
+{/*               <WishlistButton productId={product.id} variant="card" />
+ */}            </div>
           </div>
           {/* Thumbnail strip */}
           <div className="flex gap-2 justify-center">

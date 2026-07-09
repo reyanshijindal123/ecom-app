@@ -1,7 +1,59 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem, Product, User, Review, Order, Address } from '@/types';
-import { FilterState, SortOption } from '@/types';
+
+// Local types: some projects may not export these from '@/types'
+export type SortOption = 'title-asc' | 'title-desc' | 'price-asc' | 'price-desc' | string;
+
+export interface FilterState {
+  category: string;
+  search: string;
+  sort: SortOption;
+  minPrice: number;
+  maxPrice: number;
+}
+
+interface Product {
+  id: number;
+  price: number;
+  [key: string]: any;
+}
+
+interface User {
+  id: number;
+  [key: string]: any;
+}
+
+interface Review {
+  productId: number;
+  [key: string]: any;
+}
+
+interface Order {
+  id: number;
+  items: CartItem[];
+  total: number;
+  date : string;
+  status :"Processing" | "Delivered" | "Cancelled" ;
+
+
+    address: {
+    fullName: string;
+    phone: string;
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    pincode: string;
+  };
+}
+
+
+// CartItem type may not be exported from '@/types' in some projects.
+// Define a local CartItem type used by the cart store.
+interface CartItem extends Product {
+  quantity: number;
+  size?: string | null;
+}
 
 // ─── Cart Store ───────────────────────────────────────────────────────────────
 interface CartStore {
@@ -147,6 +199,42 @@ export const useOrderStore = create<OrderStore>()(
   )
 );
 
+export const useAddressStore = create<AddressStore>()(
+  persist(
+    (set) => ({
+      addresses: [],
+
+      addAddress: (address) =>
+        set((state) => ({
+          addresses: [...state.addresses, address],
+        })),
+
+      updateAddress: (address) =>
+        set((state) => ({
+          addresses: state.addresses.map((a) =>
+            a.id === address.id ? address : a
+          ),
+        })),
+
+      deleteAddress: (id) =>
+        set((state) => ({
+          addresses: state.addresses.filter((a) => a.id !== id),
+        })),
+
+      setDefault: (id) =>
+        set((state) => ({
+          addresses: state.addresses.map((a) => ({
+            ...a,
+            isDefault: a.id === id,
+          })),
+        })),
+    }),
+    {
+      name: "velvet-addresses",
+    }
+  )
+);
+
 // ─── Search History Store ─────────────────────────────────────────────────────
 interface SearchStore {
   history: string[];
@@ -169,9 +257,48 @@ export const useSearchStore = create<SearchStore>()(
 interface UIStore {
   deleteConfirmId: number | null;
   setDeleteConfirmId: (id: number | null) => void;
+  isDrawerOpen : boolean;
+  openDrawer:() => void;
+  closeDrawer: () => void;
+  toggleDrawer: () => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
   deleteConfirmId: null,
   setDeleteConfirmId: (id) => set({ deleteConfirmId: id }),
+
+  isDrawerOpen: false,
+
+  openDrawer: () => set({ isDrawerOpen: true }),
+
+  closeDrawer: () => set({ isDrawerOpen: false }),
+
+  toggleDrawer: () =>
+    set((state) => ({
+      isDrawerOpen: !state.isDrawerOpen,
+    })),
 }));
+
+interface Address {
+  id: number;
+  fullName: string;
+  phone: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  pincode: string;
+  isDefault: boolean;
+}
+
+interface AddressStore {
+  addresses: Address[];
+
+  addAddress: (address: Address) => void;
+
+  updateAddress: (address: Address) => void;
+
+  deleteAddress: (id: number) => void;
+
+  setDefault: (id: number) => void;
+}

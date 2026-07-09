@@ -9,8 +9,7 @@ import Image from "next/image";
 
 import { ArrowLeft, Package } from "lucide-react";
 
-import StatusBadge from "@/components/orders/StatusBadge";
-import OrderTimeline from "@/components/orders/OrderTimeline";
+
 
 export default function OrderDetailsPage() {
   const { id } = useParams();
@@ -21,7 +20,7 @@ export default function OrderDetailsPage() {
 
   const addItem = useCartStore((state) => state.addItem);
 
-  const order = orders.find((o) => o.id === id);
+  const order = orders.find((o) => String(o.id) === id);
 
   if (!order) {
     return (
@@ -41,7 +40,7 @@ export default function OrderDetailsPage() {
   }
 
   const buyAgain = () => {
-    order.items.forEach((item) => {
+    order.items.forEach((item: any) => {
       addItem(item, item.size);
     });
 
@@ -80,65 +79,12 @@ export default function OrderDetailsPage() {
               </h1>
             </div>
 
-            {/*  <p className="mt-4 text-gray-500">
-
-              Ordered on
-
-              <span className="ml-2 font-semibold text-gray-800">
-
-                {order.orderDate}
-
-              </span>
-
-            </p>
- */}
-            {/* 
-            <p className="mt-2 text-green-600">
-
-              Expected Delivery
-
-              <span className="ml-2 font-bold">
-
-                {order.estimatedDelivery}
-
-              </span>
-
-            </p> */}
+                      
           </div>
-          {/* <div className="flex flex-col items-start lg:items-end gap-4">
-
-  <StatusBadge status={order.status} />
-
-  <p className="text-sm text-gray-500">
-    Payment :
-    <span className="ml-2 font-semibold">
-      {order.paymentStatus}
-    </span>
-  </p>
-
-  <div className="flex gap-3 flex-wrap">
-
-    <button
-      onClick={buyAgain}
-      className="rounded-xl bg-[#970747] px-5 py-2 text-white hover:bg-[#7a0538]"
-    >
-      Buy Again
-    </button>
-
-    <button
-      className="rounded-xl border border-gray-300 px-5 py-2 hover:bg-gray-100"
-    >
-      Download Invoice
-    </button>
-
-  </div>
-
-</div> */}
+          
         </div>
       </div>
-      {/* Timeline */}
-      {/* Ordered Items */}
-
+      
       <div
        
       >
@@ -149,7 +95,7 @@ export default function OrderDetailsPage() {
         </div>
 
         <div className="space-y-6">
-          {order.items.map((item) => (
+          {order.items.map((item: any) => (
             <div
               key={item.id}
               className="flex flex-col md:flex-row gap-6 rounded-2xl border border-black-100 p-5 "

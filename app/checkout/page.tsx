@@ -51,17 +51,6 @@ const PAYMENT_METHODS: PaymentMethod[] = [
 const UPI_APPS = ['PhonePe', 'Google Pay', 'Paytm', 'BHIM'] as const;
 
 const STEPS: Step[] = ['address', 'payment', 'success'];
-const [billingAddress, setBillingAddress] = useState<AddressForm>({
-  fullName: '',
-  phone: '',
-  line1: '',
-  line2: '',
-  city: '',
-  state: '',
-  pincode: '',
-});
-
-const [sameBilling, setSameBilling] = useState(true);
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -528,7 +517,7 @@ useEffect(() => {
 
       const orderId = response.razorpay_order_id;
       placeOrder({
-        id: orderId,
+        id: Number(orderId),
         items: [...items],
         total: grand,
         date: new Date().toLocaleDateString('en-IN'),

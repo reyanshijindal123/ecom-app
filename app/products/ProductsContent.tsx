@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useProducts } from '@/hooks/useProductQueries';
 import { useFilterStore } from '@/store';
-import { Product, SortOption } from '@/types';
 import ProductCard from '@/components/product/ProductCard';
 import { ProductSkeletonGrid } from '@/components/product/ProductSkeleton';
 import SearchBar from '@/components/product/SearchBar';
@@ -49,7 +48,9 @@ export default function ProductsContent() {
   const filtered = useMemo(() => {
     if (!products) return [];
 
-    let result: Product[] = [...products];
+    type ProductType = NonNullable<typeof products>[number];
+
+    let result = [...products];
 
     // Category
 
@@ -81,8 +82,8 @@ export default function ProductsContent() {
     // Sorting
 
     const sortMap: Record<
-      SortOption,
-      (a: Product, b: Product) => number
+      string,
+      (a: ProductType, b: ProductType) => number
     > = {
       'title-asc': (a, b) =>
         a.title.localeCompare(b.title),

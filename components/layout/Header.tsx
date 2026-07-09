@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   ShoppingBag, Menu, X, Heart, LogOut, User,
-  Package, ChevronDown, Search, Mail, MapPin,
+  Package, ChevronDown, Search, Mail, MapPin,Home,
   Settings, Bookmark,
 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
@@ -12,10 +12,10 @@ import { useCartStore, useAuthStore, useWishlistStore } from '@/store';
 import SearchBar from '@/components/product/SearchBar';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/products', label: 'Products' },
-  { href: '/wishlist', label: 'Wishlist' },
-  { href: '/orders', label: 'Orders' },
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/products', label: 'Products', icon: Search },
+  { href: '/wishlist', label: 'Wishlist', icon: Heart },
+  { href: '/orders', label: 'Orders', icon: Package },
 ];
 
 /* ─── User Avatar ──────────────────────────────────────────────────────────── */
@@ -59,10 +59,13 @@ function UserDropdown() {
   };
 
   const menuLinks = [
-    { href: '/orders', icon: Package, label: 'My Orders', desc: 'Track your orders' },
-    { href: '/wishlist', icon: Bookmark, label: 'Wishlist', desc: 'Your saved items' },
-    { href: '/account?tab=profile', icon: Settings, label: 'Account Settings', desc: 'Edit profile & preferences' },
-  ];
+/*     { href: '/orders', icon: Package, label: 'My Orders', desc: 'Track your orders' },
+ */   
+/*  { href: '/wishlist', icon: Bookmark, label: 'Wishlist', desc: 'Your saved items' },
+ */  
+/*   { href: '/account?tab=profile', icon: Settings, label: 'Account Settings', desc: 'Edit profile & preferences' },
+ *//*     {href: '/cart', label:'Cart',icon:ShoppingBag},
+ */  ];
 
   return (
     <div className="relative" ref={ref}>
@@ -87,11 +90,12 @@ function UserDropdown() {
 
       {/* Dropdown panel */}
       {open && (
-        <div className="absolute right-0 mt-2.5 w-64 bg-white rounded-2xl shadow-xl border border-gray-100/80 overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className=" absolute right-0 mt-2.5 w-64 bg-white rounded-2xl shadow-xl border border-gray-100/80 overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
 
           {/* User identity card */}
-          <div className="px-4 py-4 bg-gradient-to-br from-[#970747]/5 to-pink-50 border-b border-pink-100">
+          <div className="  px-4 py-4  bg-gradient-to-br from-[#970747]/5 to-pink-50 border-b border-pink-100">
             <div className="flex items-center gap-3 mb-2.5">
+              
               <Avatar name={fullName} size="lg" />
               <div className="min-w-0">
                 <p className="text-sm font-black text-gray-900 truncate">{fullName || 'User'}</p>
@@ -100,7 +104,7 @@ function UserDropdown() {
             </div>
 
             {/* User details */}
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               {user?.email && (
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Mail size={11} className="text-gray-400 shrink-0" />
@@ -117,7 +121,9 @@ function UserDropdown() {
                 <MapPin size={11} className="text-gray-400 shrink-0" />
                 <span>India</span>
               </div>
-            </div>
+            </div> */}
+
+
           </div>
 
           {/* Navigation links */}
@@ -194,7 +200,7 @@ useEffect(() => {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-5">
+         {/*  <nav className="hidden lg:flex items-center gap-5">
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
@@ -208,7 +214,7 @@ useEffect(() => {
                 {label}
               </Link>
             ))}
-          </nav>
+          </nav> */}
 
           {/* Search */}
           <div className="hidden md:block flex-1 max-w-xs">
@@ -236,7 +242,7 @@ useEffect(() => {
             </Link>
 
             {/* Cart */}
-            <Link href="/cart" className="relative p-1.5 text-gray-500 hover:text-[#970747] transition-colors">
+            <Link href="/cart" className="relative hidden sm:flex p-1.5 text-gray-500 hover:text-[#970747] transition-colors">
               <ShoppingBag size={20} />
               {mounted && totalItems() > 0 && (
                 <span className="absolute top-0 right-0 bg-[#970747] text-white text-[9px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
@@ -246,7 +252,10 @@ useEffect(() => {
             </Link>
 
             {/* Auth */}
-            {isAuthenticated ? (
+            <div className="hidden lg:block">
+
+            
+              {isAuthenticated ? (
               <UserDropdown />
             ) : (
               <div className="hidden sm:flex items-center gap-2">
@@ -257,12 +266,29 @@ useEffect(() => {
                   Sign Up
                 </Link>
               </div>
-            )}
+            )} 
+            </div> 
 
+           {/*  {isAuthenticated ? (
+  <Avatar
+    name={[
+      useAuthStore.getState().user?.name?.firstname,
+      useAuthStore.getState().user?.name?.lastname,
+    ]
+      .filter(Boolean)
+      .join(" ")}
+  />
+) : (
+  <div className="hidden sm:flex items-center gap-2">
+    <Link href="/login">Login</Link>
+    <Link href="/signup">Sign Up</Link>
+  </div>
+)} */}
+ 
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-1.5 text-gray-600 hover:text-[#970747] ml-0.5"
+              className=" lg:hidden p-1.5 text-gray-600 hover:text-[#970747] ml-0.5"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -277,46 +303,123 @@ useEffect(() => {
         )}
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
-          <nav className="px-4 py-3 space-y-1">
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center py-2.5 px-3 rounded-xl text-sm font-medium transition-colors ${
-                  pathname === href ? 'bg-pink-50 text-[#970747]' : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-            <Link
-              href="/wishlist"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-2 py-2.5 px-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-              <Heart size={15} />
-              Wishlist
-              {mounted && wishlistCount > 0 && (
-                <span className="bg-[#970747] text-white text-xs px-1.5 py-0.5 rounded-full">{wishlistCount}</span>
-              )}
-            </Link>
-            {!isAuthenticated && (
-              <div className="flex gap-2 pt-2 border-t border-gray-100">
-                <Link href="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 text-sm font-medium border border-gray-200 rounded-xl hover:border-[#970747] hover:text-[#970747] transition-colors">
-                  Login
-                </Link>
-                <Link href="/signup" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2.5 text-sm font-bold bg-[#970747] text-white rounded-xl hover:bg-[#7a0538] transition-colors">
-                  Sign Up
-                </Link>
-              </div>
-            )}
-          </nav>
-        </div>
-      )}
+    
+      {/* Dark Overlay */}
+{mobileOpen && (
+  <div
+    className="fixed inset-0 bg-black/40 z-40 "
+    onClick={() => setMobileOpen(false)}
+  />
+)}
+{/* Mobile Drawer */}
+<div
+  className={`fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white shadow-2xl z-50 transform transition-transform duration-300  ${
+    mobileOpen ? "translate-x-0" : "translate-x-full"
+  }`}
+>
+  {/* Drawer Header*/}
+  <div className="flex items-center justify-between p-5 border-b">
+    <h2 className="text-xl font-bold text-[#970747]">
+      Velvet Store
+    </h2>
+    
+    <button onClick={()=> setMobileOpen(false)}>
+      <X size ={24} className="text-gray-600"/>
+    </button>
+  </div>
+
+  {/* Navigation */}
+  <nav className="flex flex-col p-5 gap-2">
+
+  <Link
+    href="/account"
+    onClick={() => setMobileOpen(false)}
+    className="px-4 py-3 rounded-xl hover:bg-gray-100"
+  >
+    My Account
+  </Link>
+
+  <Link
+    href="/account/orders"
+    onClick={() => setMobileOpen(false)}
+    className="px-4 py-3 rounded-xl hover:bg-gray-100"
+  >
+    Orders
+  </Link>
+
+  <Link
+    href="/wishlist"
+    onClick={() => setMobileOpen(false)}
+    className="px-4 py-3 rounded-xl hover:bg-gray-100"
+  >
+    Wishlist
+  </Link>
+
+  <Link
+    href="/account/addresses"
+    onClick={() => setMobileOpen(false)}
+    className="px-4 py-3 rounded-xl hover:bg-gray-100"
+  >
+    Addresses
+  </Link>
+
+  
+
+</nav>
+ 
+    {/* Bottom Section */}
+  <div className="absolute bottom-0 left-0 w-full border-t p-5">
+
+    {/* <Link
+      href="/wishlist"
+      className="flex items-center gap-3 py-3 hover:text-[#970747]"
+      onClick={() => setMobileOpen(false)}
+    >
+      <Heart size={18} />
+      Wishlist
+    </Link>
+ */}
+      {/* <Link
+      href="/cart"
+      className="flex items-center gap-3 py-3 hover:text-[#970747]"
+      onClick={() => setMobileOpen(false)}
+    >
+      <ShoppingBag size={18} />
+      Cart
+    </Link> */}
+
+    {!isAuthenticated ? (
+      <Link
+        href="/login"
+        className="block mt-4 text-center bg-[#970747] text-white py-3 rounded-xl"
+      >
+        Login
+      </Link>
+    ) : (
+      <button
+        onClick={() => {
+          useAuthStore.getState().logout();
+          setMobileOpen(false);
+        }}
+         className="w-full mt-4 bg-red-500 text-white py-3 rounded-xl"
+      >
+        Logout
+      </button>
+    )}
+  </div>
+</div>
+
+
+
+  
+
+
+
+
+
+
+
+
     </header>
   );
 }

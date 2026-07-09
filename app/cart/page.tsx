@@ -5,9 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Lock, Tag } from 'lucide-react';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import DeleteConfirmModal from '@/components/ui/DeleteConfirmModal';
+import DeleteConfirmModal from '@/components/ui/ConfirmModal';
 import { INR } from '@/lib/utils';
 import { toast } from 'sonner';
+import { useAuthStore } from '@/store';
+import { useRouter } from 'next/navigation';
 
 /* ── Empty state ─────────────────────────────────────────────────────────── */
 function EmptyCart() {
@@ -38,9 +40,25 @@ function EmptyCart() {
   );
 }
 
-/* ── Cart with items ─────────────────────────────────────────────────────── */
+/* ── Cart with items */
 function CartItems() {
   const { items, updateQuantity, clearCart, totalItems, totalPrice } = useCartStore();
+  const router = useRouter();
+const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+const checkLogin = () => {
+  if (!isAuthenticated) {
+    toast.error('Please login first!', {
+      description: 'Login to manage your cart.',
+      action: {
+        label: 'Login',
+        onClick: () => router.push('/login'),
+      },
+    });
+    return false;
+  }
+  return true;
+};
   const { setDeleteConfirmId } = useUIStore();
   const subtotal = totalPrice();
   const shipping = subtotal * 83 > 3999 ? 0 : 99;
@@ -58,7 +76,11 @@ function CartItems() {
             {totalItems()} {totalItems() === 1 ? 'Item' : 'Items'}
           </h2>
           <button
-            onClick={() => { clearCart(); toast.error('Cart cleared'); }}
+            onClick={() => { 
+              if(!checkLogin()) return;
+              clearCart();
+              toast.error('Cart cleared');
+            }}
             className="text-xs text-red-400 hover:text-red-600 transition-colors font-medium"
           >
             Clear all
@@ -116,7 +138,10 @@ function CartItems() {
                 <div className="flex items-center gap-2">
                   <span className="text-base font-black text-gray-900">{INR(item.price * item.quantity)}</span>
                   <button
-                    onClick={() => setDeleteConfirmId(item.id)}
+                    onClick={() => {
+                      if(!checkLogin()) return;
+                      setDeleteConfirmId(item.id);
+                    }}
                     className="text-gray-300 hover:text-red-400 transition-colors p-1 rounded-lg hover:bg-red-50"
                   >
                     <Trash2 size={15} />
