@@ -1,101 +1,200 @@
-import { Package, Heart, MapPin, ShoppingCart } from "lucide-react";
+'use client';
+import EditProfileModal from '../../components/account/EditProfileModal';
 
-export default function AccountPage() {
+import ChangePasswordModal from '../../components/account/ChangePasswordModal';
+
+import DeleteAccountModal from '../../components/account/DeleteAccountModal';
+
+import { useAuthStore } from '@/store';
+import { useState } from 'react';
+import {
+  User,
+  Shield,
+  Pencil,
+  Lock,
+  Trash2,
+} from 'lucide-react';
+
+export default function MyAccountPage() {
+  const [activeTab, setActiveTab] = useState<'profile' | 'security'>(
+    'profile'
+  );
+
+  // Later this will come from Zustand
+ 
+
+  const [editOpen, setEditOpen] = useState(false);
+
+const [passwordOpen, setPasswordOpen] = useState(false);
+
+const [deleteOpen, setDeleteOpen] = useState(false);
+
+const user = useAuthStore((state)=> state.user);
+if(!user) {
+    return <div> Loading...</div>;
+}
+
   return (
-    <div className="space-y-8">
+    <div className="max-w-5xl mx-auto px-5 py-10">
 
-      {/* Welcome Card */}
-      <div className="bg-gradient-to-r from-[#970747] to-pink-500 rounded-2xl text-white p-8 shadow-lg">
-        <h2 className="text-3xl font-bold">
-          Welcome Back 
-        </h2>
+      {/* Heading */}
 
-        <p className="mt-2 opacity-90">
-          Manage your account, orders and settings.
-        </p>
-      </div>
+      <h1 className="text-4xl font-black text-gray-900">
+        My Account
+      </h1>
 
-      {/* Stats */}
+      <p className="text-gray-500 mt-2">
+        Manage your profile information and security settings.
+      </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+      {/* Main Card */}
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg transition">
-          <Package className="text-[#970747]" />
-          <p className="mt-3 text-gray-500">Orders</p>
-          <h2 className="text-3xl font-bold">12</h2>
+      <div className="mt-8 bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+
+        {/* Tabs */}
+
+        <div className="flex border-b">
+
+          <button
+            onClick={() => setActiveTab('profile')}
+            className={`flex items-center gap-2 px-8 py-4 font-semibold transition
+            ${
+              activeTab === 'profile'
+                ? 'border-b-2 border-[#970747] text-[#970747] bg-pink-50'
+                : 'text-gray-500 hover:bg-gray-50'
+            }`}
+          >
+            <User size={18} />
+            Profile
+          </button>
+
+          <button
+            onClick={() => setActiveTab('security')}
+            className={`flex items-center gap-2 px-8 py-4 font-semibold transition
+            ${
+              activeTab === 'security'
+                ? 'border-b-2 border-[#970747] text-[#970747] bg-pink-50'
+                : 'text-gray-500 hover:bg-gray-50'
+            }`}
+          >
+            <Shield size={18} />
+            Security
+          </button>
+
         </div>
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg transition">
-          <Heart className="text-[#970747]" />
-          <p className="mt-3 text-gray-500">Wishlist</p>
-          <h2 className="text-3xl font-bold">8</h2>
-        </div>
+        {/* PROFILE */}
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg transition">
-          <MapPin className="text-[#970747]" />
-          <p className="mt-3 text-gray-500">Addresses</p>
-          <h2 className="text-3xl font-bold">2</h2>
-        </div>
+        {activeTab === 'profile' && (
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-lg transition">
-          <ShoppingCart className="text-[#970747]" />
-          <p className="mt-3 text-gray-500">Cart</p>
-          <h2 className="text-3xl font-bold">3</h2>
-        </div>
+          <div className="p-8">
 
-      </div>
+            <div className="flex justify-between items-center">
 
-      {/* Recent Orders */}
+              <h2 className="text-2xl font-bold">
+                Profile Information
+              </h2>
 
-      {/* <div className="bg-white rounded-2xl border shadow-sm p-6">
-
-        <h2 className="text-2xl font-bold mb-6">
-          Recent Orders
-        </h2>
-
-        <div className="space-y-4">
-
-          <div className="flex justify-between items-center border rounded-xl p-4">
-
-            <div>
-              <h3 className="font-semibold">
-                Order #12345
-              </h3>
-
-              <p className="text-sm text-green-600">
-                Delivered
-              </p>
+              <button
+              onClick={()=> setEditOpen(true)}
+                className="flex items-center gap-2 bg-pink-50 text-[#970747] px-5 py-2 rounded-lg hover:bg-pink-100"
+              >
+                <Pencil size={16} />
+                Edit Profile
+              </button>
 
             </div>
 
-            <p className="font-bold">
-              ₹999
-            </p>
+            <div className="mt-10 space-y-7">
 
-          </div>
+              <div className="grid grid-cols-2">
 
-          <div className="flex justify-between items-center border rounded-xl p-4">
+                <span className="font-semibold text-gray-700">
+                  Full Name
+                </span>
 
-            <div>
-              <h3 className="font-semibold">
-                Order #12346
-              </h3>
+                <span>{user.name.firstname} {user.name.lastname}</span>
 
-              <p className="text-sm text-orange-500">
-                Processing
-              </p>
+              </div>
+
+              <div className="grid grid-cols-2">
+
+                <span className="font-semibold text-gray-700">
+                  Email
+                </span>
+
+                <span>{user.email}</span>
+
+              </div>
+
+              <div className="grid grid-cols-2">
+
+               {/*  <span className="font-semibold text-gray-700">
+                  Phone Number
+                </span> */}
+
+                <span>{user.phone}</span>
+
+              </div>
 
             </div>
 
-            <p className="font-bold">
-              ₹599
-            </p>
+          </div>
+
+        )}
+
+        {/* SECURITY */}
+
+        {activeTab === 'security' && (
+
+          <div className="p-8">
+
+            <h2 className="text-2xl font-bold mb-8">
+              Security
+            </h2>
+
+            <div className="flex gap-4">
+
+              <button
+                className="flex items-center gap-2 bg-blue-50 text-blue-700 px-5 py-3 rounded-lg"
+              >
+                <Lock size={16} />
+                Update Password
+              </button>
+
+              <button
+              onClick={()=> setDeleteOpen(true)}
+                className="flex items-center gap-2 bg-red-50 text-red-600 px-5 py-3 rounded-lg"
+              >
+                <Trash2 size={16} />
+                Delete Account
+              </button>
+
+            </div>
 
           </div>
 
-        </div>
+        )}
 
-      </div> */}
+      </div>
+
+      <EditProfileModal
+  open={editOpen}
+  user={user}
+  onClose={() => setEditOpen(false)}
+/>
+
+     
+
+<ChangePasswordModal
+  open={passwordOpen}
+  onClose={() => setPasswordOpen(false)}
+/>
+
+<DeleteAccountModal
+  open={deleteOpen}
+  onClose={() => setDeleteOpen(false)}
+/>
 
     </div>
   );

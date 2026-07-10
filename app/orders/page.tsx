@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Package, ShoppingBag } from "lucide-react";
 import { useOrderStore } from "@/store";
+import type { Order } from "@/types";
 import OrderCard from "@/components/orders/OrderCard";
 import OrderStats from "@/components/orders/OrderStats";
 import OrderFilter from "@/components/orders/OrderFilter";
@@ -10,7 +11,7 @@ import { useState } from "react";
 
 export default function OrdersPage() {
 
-  const orders = useOrderStore((state) => state.orders);
+  const orders = useOrderStore((state) => state.orders) as unknown as Order[];
 
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");

@@ -1,7 +1,7 @@
 'use client';
 
 import { useProduct, useProducts } from '@/hooks/useProductQueries';
-import { useCartStore, useReviewStore } from '@/store';
+import { useCartStore, useAuthStore } from '@/store';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,6 +23,9 @@ const SIZES: Record<string, string[]> = {
 export default function ProductDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const isAuthenticated = useAuthStore(
+  (state) => state.isAuthenticated
+);
   const id = Number(params.id);
 
   const { data: product, isLoading, isError } = useProduct(id);
@@ -34,21 +37,55 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState('');
   const [activeImg, setActiveImg] = useState(0);
 
+  const checkLogin = () => {
+  if (!isAuthenticated) {
+    toast.error("Please login first!", {
+      description: "Login to add products to your cart.",
+      action: {
+        label: "Login",
+        onClick: () =>
+          router.push(
+            `/login?redirect=${encodeURIComponent(window.location.pathname)}`
+          ),
+      },
+    });
+
+    return false;
+  }
+
+  return true;
+};
+
   // Simulate multiple product images by using different sizes of same image
   const images = product ? [product.image, product.image, product.image] : [];
 
-  const handleAdd = () => {
-    if (!product) return;
-    const sizes = SIZES[product.category] || [];
-    if (sizes.length > 0 && !selectedSize) {
-      toast.error('Please select a size first');
-      return;
+ const handleAdd = () => {
+  if (!checkLogin()) return;
+
+  if (!product) return;
+
+  const sizes = SIZES[product.category] || [];
+
+  if (sizes.length > 0 && !selectedSize) {
+    toast.error("Please select a size first");
+    return;
+  }
+
+  for (let i = 0; i < qty; i++) {
+    addItem(product, selectedSize);
+  }
+
+  setAdded(true);
+
+  toast.success(
+    `Added ${qty} item${qty > 1 ? "s" : ""} to cart`,
+    {
+      description: product.title.slice(0, 40) + "...",
     }
-    for (let i = 0; i < qty; i++) addItem(product, selectedSize);
-    setAdded(true);
-    toast.success(`Added ${qty} item${qty > 1 ? 's' : ''} to cart`, { description: product.title.slice(0, 40) + '...' });
-    setTimeout(() => setAdded(false), 2000);
-  };
+  );
+
+  setTimeout(() => setAdded(false), 2000);
+};
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -196,7 +233,8 @@ export default function ProductDetailPage() {
               <div className="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden">
                 <button onClick={() => setQty(q => Math.max(1, q - 1))} className="px-3 py-2 text-gray-500 hover:bg-gray-50 transition-colors"><Minus size={13} /></button>
                 <span className="px-4 py-2 text-sm font-bold border-x-2 border-gray-200 min-w-[40px] text-center">{qty}</span>
-                <button onClick={() => setQty(q => q + 1)} className="px-3 py-2 text-gray-500 hover:bg-gray-50 transition-colors"><Plus size={13} /></button>
+                <button onClick={() => setQty(q => Math.max(1, q-1))}
+                className="px-3 py-2 text-gray-500 hover:bg-gray-50 transition-colors"><Plus size={13} /></button>
               </div>
             </div>
 

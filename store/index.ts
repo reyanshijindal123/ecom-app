@@ -113,19 +113,39 @@ interface AuthStore {
   isAuthenticated: boolean;
   login: (user: User) => void;
   logout: () => void;
+  updateUser:(user:User)=> void;
 }
-
-export const useAuthStore = create<AuthStore>()(
+  export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
       isAuthenticated: false,
-      login: (user) => set({ user, isAuthenticated: true }),
-      logout: () => set({ user: null, isAuthenticated: false }),
+
+      login: (user) =>
+        set({
+          user,
+          isAuthenticated: true,
+        }),
+
+      logout: () =>
+        set({
+          user: null,
+          isAuthenticated: false,
+        }),
+
+      updateUser: (user) =>
+        set({
+          user,
+        }),
     }),
-    { name: 'velvet-auth' }
+    {
+      name: 'velvet-auth',
+    }
   )
 );
+  
+    
+
 
 // ─── Filter Store ─────────────────────────────────────────────────────────────
 const defaultFilters: FilterState = { category: '', search: '', sort: 'title-asc', minPrice: 0, maxPrice: 100000 };
@@ -257,6 +277,10 @@ export const useSearchStore = create<SearchStore>()(
 interface UIStore {
   deleteConfirmId: number | null;
   setDeleteConfirmId: (id: number | null) => void;
+
+  clearCartModal: boolean;
+  setClearCartModal: (open: boolean )=> void; 
+
   isDrawerOpen : boolean;
   openDrawer:() => void;
   closeDrawer: () => void;
@@ -266,6 +290,13 @@ interface UIStore {
 export const useUIStore = create<UIStore>((set) => ({
   deleteConfirmId: null,
   setDeleteConfirmId: (id) => set({ deleteConfirmId: id }),
+
+  
+  clearCartModal: false,
+  setClearCartModal: (open) =>
+    set({
+      clearCartModal: open,
+    }),
 
   isDrawerOpen: false,
 
@@ -301,4 +332,6 @@ interface AddressStore {
   deleteAddress: (id: number) => void;
 
   setDefault: (id: number) => void;
+  
 }
+

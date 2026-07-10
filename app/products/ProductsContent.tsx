@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useProducts } from '@/hooks/useProductQueries';
 import { useFilterStore } from '@/store';
 import ProductCard from '@/components/product/ProductCard';
@@ -30,10 +30,15 @@ export default function ProductsContent() {
   } = useFilterStore();
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [showFilters, setShowFilters] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
+  useEffect(() => {
+  const page = Number(searchParams.get("page")) || 1;
+  setCurrentPage(page);
+}, [searchParams]);
 
   const productsPerPage = 8;
 
@@ -127,17 +132,7 @@ export default function ProductsContent() {
     indexOfLastProduct
   );
 
-  // Reset page whenever filter changes
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [
-    category,
-    search,
-    sort,
-    minPrice,
-    maxPrice,
-  ]);
+ 
 
   const priceFiltered =
     minPrice > 0 || maxPrice < DEFAULT_MAX;
@@ -355,7 +350,12 @@ export default function ProductsContent() {
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={(page)=> {
+                setCurrentPage(page);
+                const params= new URLSearchParams(searchParams.toString());
+                params.set("page", page.toString());
+                router.push(`/products?${params.toString()}`);
+              }}
             />
 
           )}
