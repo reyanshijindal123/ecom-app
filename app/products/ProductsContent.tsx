@@ -173,7 +173,7 @@ export default function ProductsContent() {
 
         <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
 
-          <div className="flex-1 w-full">
+          <div className="w-full sm:flex-1 sm: max-w-3xl">
             <SearchBar />
           </div>
 

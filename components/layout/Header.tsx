@@ -217,7 +217,7 @@ useEffect(() => {
           </nav> */}
 
           {/* Search */}
-          <div className="hidden md:block flex-1 max-w-xs">
+          <div className="hidden md:block flex-1 max-w-lg">
             <SearchBar compact />
           </div>
 

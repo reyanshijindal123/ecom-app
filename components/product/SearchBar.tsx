@@ -46,7 +46,7 @@ export default function SearchBar({ compact = false }: SearchBarProps) {
   const filtered = search ? POPULAR.filter(p => p.toLowerCase().includes(search.toLowerCase())) : POPULAR;
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className="relative w-full max-w-[900px]">
       <form onSubmit={handleSubmit}>
         <div className="relative">
           <Search size={compact ? 14 : 16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -57,9 +57,16 @@ export default function SearchBar({ compact = false }: SearchBarProps) {
             onChange={(e) => handleChange(e.target.value)}
             onFocus={() => setFocused(true)}
             placeholder={compact ? 'Search...' : 'Search products...'}
-            className={`bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#970747] focus:ring-2 focus:ring-[#970747]/10 transition-all w-full text-sm
-              ${compact ? 'pl-8 pr-7 py-1.5 text-xs' : 'pl-9 pr-9 py-2.5'}`}
-          />
+            className={`bg-white border-2 border-[#970747] rounded-xl
+shadow-[0_0_8px_rgba(151,7,71,0.18)]
+focus:outline-none
+focus:border-[#970747]
+focus:ring-4
+focus:ring-[#970747]/20
+transition-all
+w-full
+text-sm
+${compact ? 'pl-8 pr-7 py-1.5 text-xs' : 'pl-9 pr-9 py-2.5'}`} />
           {search && (
             <button type="button" onClick={() => { setSearch(''); inputRef.current?.focus(); }}
               className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
