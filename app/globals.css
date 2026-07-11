@@ -14,10 +14,7 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-/* Smooth scroll */
-/* html {
-  scroll-behavior: smooth;
-} */
+
 
 /* Line clamp utilities */
 .line-clamp-2 {
