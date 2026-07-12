@@ -145,36 +145,37 @@ if(!user) {
 
         {/* SECURITY */}
 
-        {activeTab === 'security' && (
+{activeTab === 'security' && (
+  <div className="p-8">
+    <h2 className="mb-8 text-2xl font-bold">
+      Security
+    </h2>
 
-          <div className="p-8">
+    <div className="flex flex-wrap gap-4">
 
-            <h2 className="text-2xl font-bold mb-8">
-              Security
-            </h2>
+      {/* Update Password Button */}
+      <button
+        onClick={() => setPasswordOpen(true)}
+        className="flex items-center gap-2 rounded-lg bg-blue-50 px-5 py-3 text-blue-700 transition hover:bg-blue-100"
+      >
+        <Lock size={16} />
+        Update Password
+      </button>
 
-            <div className="flex gap-4">
+      {/* Delete Account Button */}
+      <button
+        onClick={() => setDeleteOpen(true)}
+        className="flex items-center gap-2 rounded-lg bg-red-50 px-5 py-3 text-red-600 transition hover:bg-red-100"
+      >
+        <Trash2 size={16} />
+        Delete Account
+      </button>
 
-              <button
-                className="flex items-center gap-2 bg-blue-50 text-blue-700 px-5 py-3 rounded-lg"
-              >
-                <Lock size={16} />
-                Update Password
-              </button>
+    </div>
+  </div>
+)}
 
-              <button
-              onClick={()=> setDeleteOpen(true)}
-                className="flex items-center gap-2 bg-red-50 text-red-600 px-5 py-3 rounded-lg"
-              >
-                <Trash2 size={16} />
-                Delete Account
-              </button>
-
-            </div>
-
-          </div>
-
-        )}
+       
 
       </div>
 
