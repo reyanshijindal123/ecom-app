@@ -456,6 +456,13 @@ function CheckoutContent() {
     phone: '',
     line1: '', line2: '', city: '', state: '', pincode: '',
   });
+
+  const [billing, setBilling] = useState<AddressForm>({
+    fullName: '', phone: '', line1: '', line2: '', city: '', state: '', pincode: '',
+  });
+
+  const [sameBilling, setSameBilling] = useState(true);
+
 useEffect(() => {
   async function fetchAddress() {
     if (address.pincode.length !== 6) return;
@@ -521,7 +528,7 @@ useEffect(() => {
         items: [...items],
         total: grand,
         date: new Date().toLocaleDateString('en-IN'),
-        status: 'processing',
+        status: 'Processing',
         address: { ...address } as Parameters<typeof placeOrder>[0]['address'],
       });
 
@@ -570,7 +577,7 @@ useEffect(() => {
         <Stepper current={step} />
 
         {step === 'address' && (
-          <AddressStep value={address} onChange={setAddress} onNext={handleAddressNext} />
+          <AddressStep value={address} billing={billing} onBillingChange={setBilling} sameBilling={sameBilling} setSameBilling={setSameBilling} onChange={setAddress} onNext={handleAddressNext} />
         )}
 
         {step === 'payment' && (
