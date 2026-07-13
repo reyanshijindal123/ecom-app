@@ -1,15 +1,16 @@
 'use client';
 
-import { SortOption } from '@/types';
 import { useFilterStore } from '@/store';
 import { ArrowUpDown } from 'lucide-react';
 
-const sortOptions: { value: SortOption; label: string }[] = [
+const sortOptions = [
   { value: 'title-asc', label: 'Name A–Z' },
   { value: 'price-asc', label: 'Price: Low to High' },
   { value: 'price-desc', label: 'Price: High to Low' },
   { value: 'rating-desc', label: 'Top Rated' },
-];
+] as const;
+
+type SortOption = typeof sortOptions[number]['value'];
 
 export default function ProductSorting() {
   const { sort, setSort } = useFilterStore();

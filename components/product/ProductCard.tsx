@@ -1,6 +1,5 @@
 'use client';
 
-import { Product } from '@/types';
 import { useCartStore } from '@/store';
 import { ShoppingCart, Star, Eye, Check } from 'lucide-react';
 import Image from 'next/image';
@@ -12,6 +11,17 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store';
 import {toast} from 'sonner';
 
+interface Product {
+  id: number | string;
+  title: string;
+  category: string;
+  image: string;
+  price: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
+}
 
 interface ProductCardProps {
   product: Product;
@@ -44,7 +54,8 @@ const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   }
   if (justAdded) return;
 
-  addItem(product);
+  // Ensure id is a number to match store's Product type
+  addItem({ ...product, id: Number(product.id) });
   setJustAdded(true);
   setTimeout(() => setJustAdded(false), 2000);
 };
@@ -72,7 +83,7 @@ const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
           />
 
           {/* Wishlist button */}
-          <WishlistButton productId={product.id} variant="card" />
+          <WishlistButton productId={Number(product.id)} variant="card" />
 
           {/* Green "just added" flash overlay */}
           <div
