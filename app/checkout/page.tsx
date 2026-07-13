@@ -94,10 +94,18 @@ function Field({ label: lbl, children }: { label: string; children: React.ReactN
 /** Address step */
 function AddressStep({
   value,
+  billing = value,
+  onBillingChange = () => {},
+  sameBilling = true,
+  setSameBilling = () => {},
   onChange,
   onNext,
 }: {
   value: AddressForm;
+  billing?: AddressForm;
+  onBillingChange?: (v: AddressForm) => void;
+  sameBilling?: boolean;
+  setSameBilling?: (v: boolean) => void;
   onChange: (v: AddressForm) => void;
   onNext: () => void;
 }) {
