@@ -35,34 +35,34 @@ if(!user) {
 }
 
   return (
-    <div className="max-w-5xl mx-auto px-5 py-10">
+    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
 
       {/* Heading */}
 
-      <h1 className="text-4xl font-black text-gray-900">
+      <h1 className="text-3xl font-black text-gray-900 sm:text-4xl">
         My Account
       </h1>
 
-      <p className="text-gray-500 mt-2">
+      <p className="mt-2 max-w-lg text-sm text-gray-500 sm:text-base">
         Manage your profile information and security settings.
       </p>
 
       {/* Main Card */}
 
-      <div className="mt-8 bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+      <div className="mt-8 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
 
         {/* Tabs */}
 
-        <div className="flex border-b">
+        <div className="grid grid-cols-2 border-b">
 
           <button
             onClick={() => setActiveTab('profile')}
-            className={`flex items-center gap-2 px-8 py-4 font-semibold transition
-            ${
-              activeTab === 'profile'
-                ? 'border-b-2 border-[#970747] text-[#970747] bg-pink-50'
-                : 'text-gray-500 hover:bg-gray-50'
-            }`}
+className={`flex items-center justify-center gap-2 py-4 font-semibold transition
+${
+  activeTab === "profile"
+    ? "border-b-2 border-[#970747] bg-pink-50 text-[#970747]"
+    : "text-gray-500 hover:bg-gray-50"
+}`}
           >
             <User size={18} />
             Profile
@@ -89,7 +89,7 @@ if(!user) {
 
           <div className="p-8">
 
-            <div className="flex justify-between items-center">
+            <div className="flex w-full items-cneter justify-center gap-2 rounded-xl bg-pink-50 px-5 py-3 font-semibold text-[#970747] transition hover:bg-pink-100 sm:w-auto">
 
               <h2 className="text-2xl font-bold">
                 Profile Information
@@ -107,8 +107,7 @@ if(!user) {
 
             <div className="mt-10 space-y-7">
 
-              <div className="grid grid-cols-2">
-
+<div className="flex flex-col gap-1 border-b py-4 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-semibold text-gray-700">
                   Full Name
                 </span>
@@ -117,8 +116,7 @@ if(!user) {
 
               </div>
 
-              <div className="grid grid-cols-2">
-
+<div className="flex flex-col gap-1 border-b py-4 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-semibold text-gray-700">
                   Email
                 </span>
@@ -133,7 +131,16 @@ if(!user) {
                   Phone Number
                 </span> */}
 
-                <span>{user.phone}</span>
+                <div className="flex flex-col gap-1 py-4 sm:flex-row sm:justify-between">
+  <span className="font-semibold text-gray-600">
+    Phone
+  </span>
+
+  <span className="font-medium text-gray-900">
+    {user.phone}
+  </span>
+</div>
+
 
               </div>
 
@@ -151,12 +158,12 @@ if(!user) {
       Security
     </h2>
 
-    <div className="flex flex-wrap gap-4">
+    <div className="grid gap-4 sm:grid-cols-2">
 
       {/* Update Password Button */}
       <button
         onClick={() => setPasswordOpen(true)}
-        className="flex items-center gap-2 rounded-lg bg-blue-50 px-5 py-3 text-blue-700 transition hover:bg-blue-100"
+        className="flex items-center justify-center gap-3 rounded-2xl border border-blue-200 bg-blue-50 px-6 py-4 font-semibold text-blue-700 transition hover:bg-blue-100"
       >
         <Lock size={16} />
         Update Password
@@ -165,7 +172,7 @@ if(!user) {
       {/* Delete Account Button */}
       <button
         onClick={() => setDeleteOpen(true)}
-        className="flex items-center gap-2 rounded-lg bg-red-50 px-5 py-3 text-red-600 transition hover:bg-red-100"
+        className="flex items-center justify-center gap-3 rounded-2xl border border-red-200 bg-red-50 px-6 py-4 font-semibold text-red-600 transition hover:bg-red-100"
       >
         <Trash2 size={16} />
         Delete Account

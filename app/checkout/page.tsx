@@ -94,18 +94,10 @@ function Field({ label: lbl, children }: { label: string; children: React.ReactN
 /** Address step */
 function AddressStep({
   value,
-  billing,
-  onBillingChange,
-  sameBilling,
-  setSameBilling,
   onChange,
   onNext,
 }: {
   value: AddressForm;
-  billing: AddressForm;
-  onBillingChange:(v: AddressForm)=> void;
-  sameBilling: boolean;
-  setSameBilling:(v: boolean)=> void;
   onChange: (v: AddressForm) => void;
   onNext: () => void;
 }) {
@@ -456,6 +448,13 @@ function CheckoutContent() {
     phone: '',
     line1: '', line2: '', city: '', state: '', pincode: '',
   });
+
+  const [billing, setBilling] = useState<AddressForm>({
+    fullName: '', phone: '', line1: '', line2: '', city: '', state: '', pincode: '',
+  });
+
+  const [sameBilling, setSameBilling] = useState(true);
+
 useEffect(() => {
   async function fetchAddress() {
     if (address.pincode.length !== 6) return;
@@ -521,7 +520,7 @@ useEffect(() => {
         items: [...items],
         total: grand,
         date: new Date().toLocaleDateString('en-IN'),
-        status: 'processing',
+        status: 'Processing',
         address: { ...address } as Parameters<typeof placeOrder>[0]['address'],
       });
 
