@@ -94,18 +94,18 @@ function Field({ label: lbl, children }: { label: string; children: React.ReactN
 /** Address step */
 function AddressStep({
   value,
-  billing,
-  onBillingChange,
-  sameBilling,
-  setSameBilling,
+  billing = value,
+  onBillingChange = () => {},
+  sameBilling = true,
+  setSameBilling = () => {},
   onChange,
   onNext,
 }: {
   value: AddressForm;
-  billing: AddressForm;
-  onBillingChange:(v: AddressForm)=> void;
-  sameBilling: boolean;
-  setSameBilling:(v: boolean)=> void;
+  billing?: AddressForm;
+  onBillingChange?: (v: AddressForm) => void;
+  sameBilling?: boolean;
+  setSameBilling?: (v: boolean) => void;
   onChange: (v: AddressForm) => void;
   onNext: () => void;
 }) {
@@ -521,7 +521,7 @@ useEffect(() => {
         items: [...items],
         total: grand,
         date: new Date().toLocaleDateString('en-IN'),
-        status: 'processing',
+        status: 'Processing',
         address: { ...address } as Parameters<typeof placeOrder>[0]['address'],
       });
 
