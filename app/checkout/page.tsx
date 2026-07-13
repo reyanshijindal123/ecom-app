@@ -456,6 +456,13 @@ function CheckoutContent() {
     phone: '',
     line1: '', line2: '', city: '', state: '', pincode: '',
   });
+
+  const [billing, setBilling] = useState<AddressForm>({
+    fullName: '', phone: '', line1: '', line2: '', city: '', state: '', pincode: '',
+  });
+
+  const [sameBilling, setSameBilling] = useState(true);
+
 useEffect(() => {
   async function fetchAddress() {
     if (address.pincode.length !== 6) return;
