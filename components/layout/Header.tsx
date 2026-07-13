@@ -15,6 +15,8 @@ import {
   MapPin,
   Home,
 } from 'lucide-react';
+import { Suspense } from 'react';
+
 import { useState, useRef, useEffect } from 'react';
 
 import {
@@ -283,7 +285,9 @@ export default function Header() {  const [mobileOpen, setMobileOpen] = useState
 
         {/* Desktop Search */}
         <div className="hidden max-w-lg flex-1 md:block">
-          <SearchBar compact />
+          <Suspense fallback = {null}>
+            <SearchBar compact/>
+          </Suspense>
         </div>
 
         {/* Right Section */}

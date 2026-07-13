@@ -1,7 +1,7 @@
 "use client";
 
 import { MapPin, Phone, User } from "lucide-react";
-import { Address } from "@/types";
+import { Address } from "../AddressForm";
 
 interface ShippingAddressProps {
   address: Address;
@@ -49,12 +49,8 @@ export default function ShippingAddress({
             </p>
 
             <p className="font-medium">
-              {address.line1}
+              {address.address}
             </p>
-
-            {address.line2 && (
-              <p>{address.line2}</p>
-            )}
 
             <p>
               {address.city}, {address.state}

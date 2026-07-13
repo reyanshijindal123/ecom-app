@@ -5,7 +5,18 @@ import ProductCard from './ProductCard';
 import { ProductSkeletonGrid } from './ProductSkeleton';
 import Link from 'next/link';
 import { ArrowRight, TrendingUp, Tag, Star } from 'lucide-react';
-import { Product } from '@/types';
+
+type Product = {
+  id: string | number;
+  price: number;
+  title: string;
+  category: string;
+  image: string;
+  rating: {
+    count: number;
+    rate: number;
+  };
+};
 
 interface SectionProps {
   title: string;
