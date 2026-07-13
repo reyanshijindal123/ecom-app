@@ -1,16 +1,14 @@
-import { Product, User } from '@/types';
-
 const BASE_URL = 'https://fakestoreapi.com';
 
 export const api = {
   // Products
-  getProducts: async (): Promise<Product[]> => {
+  getProducts: async (): Promise<any[]> => {
     const res = await fetch(`${BASE_URL}/products`);
     if (!res.ok) throw new Error('Failed to fetch products');
     return res.json();
   },
 
-  getProduct: async (id: number): Promise<Product> => {
+  getProduct: async (id: number): Promise<any> => {
     const res = await fetch(`${BASE_URL}/products/${id}`);
     if (!res.ok) throw new Error('Failed to fetch product');
     return res.json();
@@ -22,7 +20,7 @@ export const api = {
     return res.json();
   },
 
-  getProductsByCategory: async (category: string): Promise<Product[]> => {
+  getProductsByCategory: async (category: string): Promise<any[]> => {
     const res = await fetch(`${BASE_URL}/products/category/${category}`);
     if (!res.ok) throw new Error('Failed to fetch products by category');
     return res.json();
@@ -39,7 +37,7 @@ export const api = {
     return res.json();
   },
 
-  getUser: async (id: number): Promise<User> => {
+  getUser: async (id: number): Promise<any> => {
     const res = await fetch(`${BASE_URL}/users/${id}`);
     if (!res.ok) throw new Error('Failed to fetch user');
     return res.json();

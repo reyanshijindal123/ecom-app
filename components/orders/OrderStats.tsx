@@ -10,15 +10,15 @@ interface Props {
 export default function OrderStats({ orders }: Props) {
 
   const delivered = orders.filter(
-    (o) => o.status === "delivered"
+    (o) => o.status === "Delivered"
   ).length;
 
   const processing = orders.filter(
-    (o) => o.status === "processing"
+    (o) => o.status === "Processing"
   ).length;
 
   const shipped = orders.filter(
-    (o) => o.status === "shipped"
+    (o) => o.status === "Shipped"
   ).length;
 
 
