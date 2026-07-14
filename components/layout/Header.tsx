@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   ShoppingBag,
   Menu,
@@ -167,32 +167,26 @@ function UserDropdown() {
             ))}
           </div>
 
-         <div className="border-t border-gray-100 p-2">
-  <button
-    onClick={handleLogout}
-    className="group flex w-full items-center gap-4 rounded-xl px-4 py-3 transition-all duration-200 hover:bg-red-50"
-  >
-    <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50 transition-all group-hover:bg-red-100">
-      <LogOut
-        size={14}
-        className="text-red-500"
-      />
-    </div>
+          <div className="border-t border-gray-100 p-2">
+            <button
+              onClick={handleLogout}
+              className="group flex w-full items-center gap-4 rounded-xl px-4 py-3 transition-all duration-200 hover:bg-red-50"
+            >
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-red-50 transition-all group-hover:bg-red-100">
+                <LogOut size={14} className="text-red-500" />
+              </div>
 
-    <div className="flex flex-col items-start">
-      <span className="text-sm font-semibold text-red-500">
-        Log out
-      </span>
+              <div className="flex flex-col items-start">
+                <span className="text-sm font-semibold text-red-500">
+                  Log out
+                </span>
 
-      <span className="text-xs text-red-300">
-        Sign out of your account
-      </span>
-    </div>
-  </button>
-</div>
-
-
-
+                <span className="text-xs text-red-300">
+                  Sign out of your account
+                </span>
+              </div>
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -213,6 +207,7 @@ export default function Header() {
   const totalItems = useCartStore((state) => state.totalItems);
   const wishlistCount = useWishlistStore((state) => state.ids.length);
   const { isAuthenticated } = useAuthStore();
+  const pathname: any = usePathname();
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white shadow-sm">
@@ -230,11 +225,13 @@ export default function Header() {
         </Link>
 
         {/* Desktop Search */}
+        {usePathname() !== "/login"&&(
         <div className="hidden max-w-lg flex-1 md:block">
           <Suspense fallback={null}>
             <SearchBar compact />
           </Suspense>
         </div>
+        )}
 
         {/* Right Section */}
         <div className="flex items-center gap-2">
@@ -247,6 +244,7 @@ export default function Header() {
           </button>
 
           {/* Wishlist */}
+          { isAuthenticated && (
           <Link
             href="/wishlist"
             className="relative hidden p-1.5 text-gray-500 transition-colors hover:text-[#970747] sm:flex"
@@ -259,8 +257,10 @@ export default function Header() {
               </span>
             )}
           </Link>
+          )}
 
           {/* Cart */}
+          {isAuthenticated && (
           <Link
             href="/cart"
             className="relative hidden p-1.5 text-gray-500 transition-colors hover:text-[#970747] sm:flex"
@@ -273,6 +273,7 @@ export default function Header() {
               </span>
             )}
           </Link>
+          )}
 
           {/* Desktop Auth */}
           <div className="hidden lg:block">
@@ -280,12 +281,12 @@ export default function Header() {
               <UserDropdown />
             ) : (
               <div className="flex items-center gap-2">
-                <Link
+              {/*   <Link
                   href="/login"
                   className="px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#970747]"
                 >
                   Login
-                </Link>
+                </Link> */}
 
                 <Link
                   href="/signup"
@@ -308,7 +309,7 @@ export default function Header() {
       </div>
 
       {/* Mobile Search */}
-      {searchOpen && (
+      {usePathname() !== "/login" && searchOpen && (
         <div className="px-4 pb-3 md:hidden">
           <SearchBar />
         </div>

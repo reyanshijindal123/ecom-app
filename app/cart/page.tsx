@@ -20,12 +20,12 @@ function EmptyCart() {
         <div className="w-28 h-28 bg-pink-50 rounded-full flex items-center justify-center">
           <ShoppingBag size={48} className="text-[#970747]/25" strokeWidth={1.5} />
         </div>
-        <div className="absolute -top-1 -right-1 bg-gray-900 text-white rounded-full w-9 h-9 flex items-center justify-center text-base font-black shadow-md">
+        {/* <div className="absolute -top-1 -right-1 bg-gray-900 text-white rounded-full w-9 h-9 flex items-center justify-center text-base font-black shadow-md">
           0
-        </div>
+        </div> */}
       </div>
 
-      <h2 className="text-2xl font-black text-gray-900 mb-2">0 items in your cart</h2>
+      <h2 className="text-2xl font-black text-gray-900 mb-2">No items in your cart</h2>
       <p className="text-gray-500 text-sm max-w-xs leading-relaxed mb-8">
         Your cart is empty. Browse our collection and add something you love.
       </p>

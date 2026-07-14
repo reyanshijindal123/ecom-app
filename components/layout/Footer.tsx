@@ -1,105 +1,177 @@
-import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
-import { ComingSoonModal } from '../ui/ComingSoonModal';
+import Link from "next/link";
+import {
+  ShoppingBag,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+
+} from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-[#970747] flex items-center justify-center">
-                <ShoppingBag size={16} className="text-white" />
+    <footer className="bg-black text-white w-full mt-20">
+      <div className="max-w-7xl mx-auto px-8 py-16">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14">
+
+          {/* Logo */}
+          <div>
+
+            <div className="flex items-center gap-4 mb-8">
+
+              <div className="w-14 h-14 rounded-full bg-pink-600 flex items-center justify-center">
+                <ShoppingBag size={28}/>
               </div>
-              <span className="text-xl font-bold text-white">
-                VelvetStore
-              </span>
+
+              <h2 className="text-4xl font-bold">
+                <span className="text-pink-500">Velvet</span>
+                <span className="text-pink-500">Store</span>
+              </h2>
+
             </div>
 
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-              Curated fashion for the bold. Discover premium pieces that define
-              your style, delivered to your door.
+            <p className="text-gray-400 leading-9 text-lg max-w-xs">
+              Curated fashion for the bold.
+              <br />
+              Discover premium fashion,
+              <br />
+              electronics and jewellery
+              <br />
+              with a seamless shopping
+              <br />
+              experience.
             </p>
+
+           
+
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation */}
+
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-[#970747] mb-4">
-              Shop
+
+            <h3 className="text-2xl font-semibold mb-8 uppercase">
+              Navigation
             </h3>
 
-            <ul className="space-y-2">
-              {[
-                { label: "All Products", href: "/products" },
-                {
-                  label: "Men's Clothing",
-                  href: "/products?category=men's+clothing",
-                },
-                {
-                  label: "Women's Clothing",
-                  href: "/products?category=women's+clothing",
-                },
-                {
-                  label: "Electronics",
-                  href: "/products?category=electronics",
-                },
-                {
-                  label: "Jewelery",
-                  href: "/products?category=jewelery",
-                },
-              ].map(({ label, href }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="text-gray-400 text-sm hover:text-white transition-colors"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="space-y-5">
+
+              <li><Link href="/">Home</Link></li>
+
+              <li><Link href="/products">All Products</Link></li>
+
+              <li><Link href="/products?category=men's+clothing">Men's Clothing</Link></li>
+
+              <li><Link href="/products?category=women's+clothing">Women's Clothing</Link></li>
+
+              <li><Link href="/products?category=electronics">Electronics</Link></li>
+
+              <li><Link href="/products?category=jewelery">Jewellery</Link></li>
+
             </ul>
+
           </div>
 
-          {/* Help */}
+          {/* Contact */}
+
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-[#970747] mb-4">
-              Help
+
+            <h3 className="text-2xl font-semibold mb-8 uppercase">
+              Contact
             </h3>
 
-            <ul className="space-y-2">
-              {[
-                "FAQ",
-                "Shipping Policy",
-                "Returns",
-                "Track Order",
-                "Contact Us",
-              ].map((item) => (
-                <li key={item}>
-                  <ComingSoonModal featureName={item}>
-                    <button
-                      type="button"
-                      className="text-gray-400 text-sm hover:text-white transition-colors"
-                    >
-                      {item}
-                    </button>
-                  </ComingSoonModal>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-6">
+
+              <div className="flex gap-4">
+                <Phone className="text-pink-500"/>
+                <span className="text-gray-400">
+                  +91 98765 43210
+                </span>
+              </div>
+
+              <div className="flex gap-4">
+                <Mail className="text-pink-500"/>
+                <span className="text-gray-400">
+                  support@velvetstore.com
+                </span>
+              </div>
+
+              <div className="flex gap-4">
+                <MapPin className="text-pink-500"/>
+                <span className="text-gray-400">
+                  New Delhi,
+                  <br/>
+                  India
+                </span>
+              </div>
+
+            </div>
+
           </div>
+
+          {/* Hours */}
+
+          <div>
+
+            <h3 className="text-2xl font-semibold mb-8 uppercase">
+              Opening Hours
+            </h3>
+
+            <div className="space-y-6">
+
+              <div className="flex gap-4">
+                <Clock className="text-pink-500"/>
+                <span className="text-gray-400">
+                  Mon - Thu : 9:00 AM - 9:00 PM
+                </span>
+              </div>
+
+              <div className="flex gap-4">
+                <Clock className="text-pink-500"/>
+                <span className="text-gray-400">
+                  Fri : 8:00 AM - 9:00 PM
+                </span>
+              </div>
+
+              <div className="flex gap-4">
+                <Clock className="text-pink-500"/>
+                <span className="text-gray-400">
+                  Sat : 9:30 AM - 3:00 PM
+                </span>
+              </div>
+
+              <div className="flex gap-4">
+                <Clock className="text-pink-500"/>
+                <span className="text-gray-400">
+                  Sunday : Closed
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <p className="text-gray-500 text-xs">
-            © {new Date().getFullYear()} VelvetStore. All rights reserved.
-          </p>
+        <div className="border-t border-gray-800 mt-16 pt-4">
 
-          <p className="text-gray-600 text-xs">
-            Powered by FakeStore API · Built with Next.js
-          </p>
+          <div className="flex justify-between flex-col md:flex-row gap-4">
+
+            <p className="text-gray-500">
+              © 2026 VelvetStore. All rights reserved.
+            </p>
+
+            <p className="text-gray-500">
+              Powered by FakeStore API
+              <span className="text-pink-500 mx-3">•</span>
+              Built with Next.js
+            </p>
+
+          </div>
+
         </div>
+
       </div>
     </footer>
   );

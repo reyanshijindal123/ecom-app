@@ -4,6 +4,7 @@ import { useWishlistStore, useAuthStore } from '@/store';
 import { Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import {toast} from "sonner";
 
 interface WishlistButtonProps {
   productId: number;
@@ -31,9 +32,14 @@ export default function WishlistButton({
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      router.push('/login?redirect=/wishlist');
-      return;
-    }
+  toast.error("Please login first to add items to your wishlist.");
+
+  setTimeout(() => {
+    router.push("/login?redirect=/wishlist");
+  }, 1000);
+
+  return;
+}
 
     setAnimating(true);
     toggle(productId);
