@@ -319,13 +319,7 @@ function SignupTab({ onSwitch }: { onSwitch: () => void }) {
         {errors.confirm && <p className="text-xs text-red-500">⚠ {errors.confirm}</p>}
       </div>
 
-      <p className="text-[11px] text-gray-400 leading-relaxed">
-        By creating an account you agree to our{' '}
-        <span className="text-[#970747] cursor-pointer hover:underline">Terms of Service</span>
-        {' '}and{' '}
-        <span className="text-[#970747] cursor-pointer hover:underline">Privacy Policy</span>.
-      </p>
-
+    
       <button
         type="submit"
         disabled={loading}
@@ -359,9 +353,7 @@ export default function LoginForm() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <Logo />
-          </div>
+          
           <h1 className="text-2xl font-black text-gray-900">
             {tab === 'login' ? 'Welcome back' : 'Join VelvetStore'}
           </h1>

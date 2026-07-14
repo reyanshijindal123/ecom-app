@@ -356,7 +356,7 @@ export default function ProductDetailPage() {
                   </>
                 ) : (
                   <>
-                    <ShoppingCart size={16} /> Add to Cart – {priceINR}
+                    <ShoppingCart size={16} /> Add to Cart
                   </>
                 )}
               </button>

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="antialiased flex flex-col min-h-screen bg-gray-50 font-sans">
+      <body className="antialiased flex flex-col min-h-screen font-sans bg-white">
         <QueryProvider>
           <Toaster 
             position="top-right" 
