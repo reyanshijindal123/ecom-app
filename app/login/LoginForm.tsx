@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/store';
 import { api } from '@/lib/api';
@@ -56,7 +56,7 @@ function PasswordInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        required
+
         className={`${inputBase} pl-10 pr-10`}
       />
       <button
@@ -167,7 +167,7 @@ function LoginTab({ onSwitch }: { onSwitch: () => void }) {
         {loading ? (
           <><Loader2 size={16} className="animate-spin" /> Signing in…</>
         ) : (
-          <>Sign In <ArrowRight size={15} /></>
+          <>Login <ArrowRight size={15} /></>
         )}
       </button>
 
@@ -200,16 +200,43 @@ function SignupTab({ onSwitch }: { onSwitch: () => void }) {
   const set = (k: keyof typeof form) => (v: string) => setForm((f) => ({ ...f, [k]: v }));
 
   const validate = () => {
-    const e: Record<string, string> = {};
-    if (!form.firstname.trim()) e.firstname = 'First name is required';
-    if (!form.lastname.trim()) e.lastname = 'Last name is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
-    if (form.username.length < 3) e.username = 'Minimum 3 characters';
-    if (!PASSWORD_RULES.every(r => r.test(form.password))) e.password = 'Password too weak';
-    if (form.password !== form.confirm) e.confirm = 'Passwords do not match';
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
+  const e: Record<string, string> = {};
+
+  if (!form.firstname.trim()) {
+    e.firstname = "First name is required";
+  }
+
+  if (!form.lastname.trim()) {
+    e.lastname = "Last name is required";
+  }
+
+  if (!form.email.trim()) {
+    e.email = "Email is required";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    e.email = "Enter a valid email";
+  }
+
+  if (!form.username.trim()) {
+    e.username = "Username is required";
+  } else if (form.username.length < 3) {
+    e.username = "Minimum 3 characters";
+  }
+
+  if (!form.password) {
+    e.password = "Password is required";
+  } else if (!PASSWORD_RULES.every((r) => r.test(form.password))) {
+    e.password = "Password too weak";
+  }
+
+  if (!form.confirm) {
+    e.confirm = "Confirm your password";
+  } else if (form.password !== form.confirm) {
+    e.confirm = "Passwords do not match";
+  }
+
+  setErrors(e);
+  return Object.keys(e).length === 0;
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -231,7 +258,7 @@ function SignupTab({ onSwitch }: { onSwitch: () => void }) {
   const strengthLabel = ['', 'Weak', 'Fair', 'Strong'][passStrength];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form noValidate onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1.5">
           <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide">First Name</label>
@@ -345,8 +372,11 @@ function SignupTab({ onSwitch }: { onSwitch: () => void }) {
 // ─── Main Auth Page ────────────────────────────────────────────────────────
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const initialTab = searchParams.get('tab') === 'signup' ? 'signup' : 'login';
-  const [tab, setTab] = useState<'login' | 'signup'>(initialTab);
+  const router = useRouter();
+
+
+const tab: "login" | "signup" =
+  searchParams.get("tab") === "signup" ? "signup" : "login";
 
   return (
     <div className="min-h-[88vh] flex items-center justify-center px-4 py-10 bg-gradient-to-br from-pink-50/60 via-white to-white">
@@ -369,14 +399,20 @@ export default function LoginForm() {
           {(['login', 'signup'] as const).map((t) => (
             <button
               key={t}
-              onClick={() => setTab(t)}
+            onClick={() => {
+  if (t === "signup") {
+    router.replace("/login?tab=signup");
+  } else {
+    router.replace("/login");
+  }
+}}
               className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
                 tab === t
                   ? 'bg-white text-[#970747] shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >
-              {t === 'login' ? 'Sign In' : 'Sign Up'}
+              {t === 'login' ? 'Login' : 'Sign Up'}
             </button>
           ))}
         </div>
@@ -384,9 +420,16 @@ export default function LoginForm() {
         {/* Card */}
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-7">
           {tab === 'login' ? (
-            <LoginTab onSwitch={() => setTab('signup')} />
+            <LoginTab 
+            onSwitch ={() => {
+              router.replace("/login?tab=signup");
+            }}/>
+         
           ) : (
-            <SignupTab onSwitch={() => setTab('login')} />
+            <SignupTab 
+            onSwitch ={() => {
+              router.push("/login");
+            }}/>
           )}
         </div>
       </div>

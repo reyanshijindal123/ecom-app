@@ -12,7 +12,7 @@ import CategoryFilter from "@/components/product/CategoryFilter";
 import ProductSorting from "@/components/product/ProductSorting";
 import PriceRangeSlider from "@/components/product/PriceRangeSlider";
 import Pagination from "@/components/Pagination";
-
+import DesktopFilterSidebar from "@/components/product/DesktopFilterSidebar";
 import {
   Package,
   SlidersHorizontal,
@@ -29,6 +29,7 @@ export default function ProductsContent() {
     sort,
     minPrice,
     maxPrice,
+    
     setCategory,
     resetFilters,
   } = useFilterStore();
@@ -55,7 +56,7 @@ export default function ProductsContent() {
 
   // Lock background scroll whenever any modal is open
   useEffect(() => {
-    if (showFilters || showDesktopFilters || showSort) {
+    if (showFilters ||  showSort) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
     } else {
@@ -67,7 +68,7 @@ export default function ProductsContent() {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, [showFilters, showDesktopFilters, showSort]);
+  }, [showFilters,  showSort]);
 
   const productsPerPage = 8;
 
@@ -86,7 +87,7 @@ export default function ProductsContent() {
 
     if (category) {
       result = result.filter((p) => p.category === category);
-    }
+}
 
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -172,47 +173,43 @@ export default function ProductsContent() {
     </div>
 
     {/* Main Layout */}
-    <div className="flex gap-8">
+<div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
 
-      {/* Products Section */}
-      <div className="flex-1">
+   {/* Desktop Sidebar */}
+  <DesktopFilterSidebar
+    onClear={handleClearAll}
+  />
+
+  {/* Products Section */}
+  <div className="flex-1">
+
 
         {/* Top Bar */}
-        <div className="flex items-center justify-between mb-8">
 
-          {/* Showing Products */}
-          <p className="text-sm text-gray-500">
-            Showing {currentProducts.length} of {filtered.length} products
-          </p>
+        <div className="mb-6 flex items-center justify-between">
 
-          {/* Desktop Controls */}
-          <div className="hidden lg:flex items-center gap-4">
+  {/* Left */}
+  <p className="text-gray-500 text-sm">
+    Showing {currentProducts.length} of {filtered.length} products
+  </p>
 
-            {/* Filter Button */}
-            <button
-              onClick={() => setShowDesktopFilters(true)}
-              className="flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-2.5 font-semibold transition-all hover:border-[#970747] hover:text-[#970747] hover:shadow-md"
-            >
-              <SlidersHorizontal size={18} />
-              Filters
-            </button>
+  {/* Right */}
+  <div className="hidden lg:flex items-center gap-3 ml-auto">
 
-            {/* Sort */}
-            <div className="flex items-center gap-3">
+    <span className="text-sm font-semibold text-gray-700">
+      Sort By
+    </span>
 
-              <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">
-                Sort By
-              </span>
+    <div className="w-full min-w-[260px] rounded-xl border border-gray-300 bg-white px-4 py-3 text-base font-medium text-gray-800 shadow-sm transition-all duration-200 hover:border-[#970747] focus:border-[#970747] focus:ring-2 focus:ring-[#970747]/20 focus:outline-none cursor-pointer">
+      <ProductSorting />
+    </div>
 
-              <div className="w-56">
-                <ProductSorting />
-              </div>
+  </div>
 
-            </div>
+</div>
+        
+      
 
-          </div>
-
-        </div>
         {isLoading ? (
 
           <ProductSkeletonGrid count={8} />
@@ -370,88 +367,26 @@ export default function ProductsContent() {
 
   </div>
 )}
-         {/* ================= DESKTOP FILTER MODAL ================= */}
-
-      {showDesktopFilters && (
-        <>
-          {/* Overlay */}
-          <div
-            onClick={() => setShowDesktopFilters(false)}
-            className="hidden lg:block fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-          />
-
-          {/* Modal */}
-          <div className="hidden lg:flex fixed inset-0 z-50 items-center justify-center p-6">
-
-            <div className="w-full max-w-2xl rounded-3xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.25)] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-
-              <div className="flex items-center justify-between bg-gradient-to-r from-[#970747] to-pink-600 px-8 py-6">
-
-                <div>
-                  <h2 className="text-2xl font-bold text-white">Filters</h2>
-                  <p className="text-pink-100 text-sm mt-1">
-                    Refine your shopping experience
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => setShowDesktopFilters(false)}
-                  className="h-11 w-11 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center"
-                >
-                  <X className="text-white" size={22} />
-                </button>
-
-              </div>
-
-              <div className="max-h-[65vh] overflow-y-auto p-8 space-y-8 bg-gray-50">
-                <div className="rounded-2xl bg-white p-6 shadow-sm border">
-                  <CategoryFilter />
-                </div>
-
-                <div className="rounded-2xl bg-white p-6 shadow-sm border">
-                  <PriceRangeSlider />
-                </div>
-              </div>
-
-              <div className="flex gap-4 border-t bg-white p-6">
-                <button
-                  onClick={handleClearAll}
-                  className="flex-1 rounded-xl border border-[#970747] py-3 font-semibold text-[#970747] transition hover:bg-pink-50"
-                >
-                  Clear All
-                </button>
-
-                <button
-                  onClick={() => setShowDesktopFilters(false)}
-                  className="flex-1 rounded-xl bg-[#970747] py-3 font-semibold text-white transition hover:bg-[#7a0538] shadow-lg shadow-pink-200"
-                >
-                  Apply Filters
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      {/* ================= MOBILE SORT MODAL ================= */}
+{/* ================= MOBILE SORT MODAL ================= */}
 {showSort && (
-  <div className="fixed inset-0 z-50 bg-white lg:hidden flex flex-col">
-
+  <div className="fixed inset-0 z-50 flex flex-col bg-white lg:hidden">
+    {/* Header */}
     <div className="flex items-center justify-between border-b px-5 py-4">
-      <h2 className="text-xl font-bold">
-        Sort By
-      </h2>
+      <h2 className="text-xl font-bold">Sort By</h2>
 
       <button onClick={() => setShowSort(false)}>
         <X size={24} />
       </button>
     </div>
 
-    <div className="flex-1 p-5">
-
-      <ProductSorting />
-
+    {/* Sort Options */}
+    <div className="flex-1 overflow-y-auto p-5">
+      <div className="lg:hidden">
+        <ProductSorting />
+      </div>
     </div>
 
+    {/* Bottom Button */}
     <div className="border-t p-4">
       <button
         onClick={() => setShowSort(false)}
@@ -460,10 +395,17 @@ export default function ProductsContent() {
         Apply
       </button>
     </div>
-
   </div>
 )}
+  
+
+
+
 
   </div>
   );
 }
+     
+
+
+
