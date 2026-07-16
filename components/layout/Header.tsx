@@ -280,21 +280,23 @@ export default function Header() {
             {isAuthenticated ? (
               <UserDropdown />
             ) : (
-              <div className="flex items-center gap-2">
-              {/*   <Link
-                  href="/login"
-                  className="px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#970747]"
-                >
-                  Login
-                </Link> */}
+             <div className="flex items-center gap-3">
 
-                <Link
-                  href="/signup"
-                  className="rounded-xl bg-[#970747] px-4 py-1.5 text-sm font-bold text-white transition-colors hover:bg-[#7a0538]"
-                >
-                  Sign Up
-                </Link>
-              </div>
+  <Link
+    href="/login"
+    className="rounded-xl border border-[#970747] px-4 py-2 text-sm font-semibold text-[#970747] transition hover:bg-pink-50"
+  >
+    Login
+  </Link>
+
+  <Link
+    href="/login?tab=signup"
+    className="rounded-xl bg-[#970747] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#7a0538]"
+  >
+    Sign Up
+  </Link>
+
+</div>
             )}
           </div>
 
@@ -448,14 +450,28 @@ export default function Header() {
 
         <div className="absolute bottom-0 left-0 w-full border-t bg-white p-5">
           {!isAuthenticated ? (
-            <Link
-              href="/login"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 rounded-xl bg-[#970747] py-3 font-semibold text-white hover:bg-[#7a0538]"
-            >
-              <LogIn size={18} />
-              Login
-            </Link>
+            <div className="flex flex-col gap-3">
+
+    <Link
+      href="/login"
+      onClick={() => setMobileOpen(false)}
+      className="flex items-center justify-center gap-2 rounded-xl bg-[#970747] py-3 font-semibold text-white hover:bg-[#7a0538]"
+    >
+      <LogIn size={18} />
+      Login
+    </Link>
+
+    <Link
+      href="/login?tab=signup"
+      onClick={() => setMobileOpen(false)}
+      className="flex items-center justify-center rounded-xl border border-[#970747] py-3 font-semibold text-[#970747] hover:bg-pink-50"
+    >
+      Sign Up
+    </Link>
+
+  </div>
+
+            
           ) : (
             <button
               onClick={() => {
