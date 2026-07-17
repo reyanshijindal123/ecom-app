@@ -5,17 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Heart,
+  LogIn,
   Menu,
   Search,
   ShoppingBag,
   X,
 } from "lucide-react";
 
-import {
-  useAuthStore,
-  useCartStore,
-  useWishlistStore,
-} from "@/store";
+import { useAuthStore, useCartStore, useWishlistStore } from "@/store";
 
 import SearchBar from "@/components/product/SearchBar";
 
@@ -25,6 +22,7 @@ import CountBadge from "@/components/header/CountBadge";
 
 export default function Header() {
   const pathname = usePathname();
+
   const isAuthPage = pathname === "/login";
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -35,17 +33,10 @@ export default function Header() {
     setMounted(true);
   }, []);
 
-  const isAuthenticated = useAuthStore(
-    (state) => state.isAuthenticated
-  );
+  const { isAuthenticated } = useAuthStore();
 
-  const totalItems = useCartStore(
-    (state) => state.totalItems
-  );
-
-  const wishlistCount = useWishlistStore(
-    (state) => state.ids.length
-  );
+  const totalItems = useCartStore((state) => state.totalItems);
+  const wishlistCount = useWishlistStore((state) => state.ids.length);
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white shadow-sm">
@@ -82,7 +73,7 @@ export default function Header() {
           </div>
         )}
 
-        {/* Right Section */}
+        {/* Right Side */}
 
         <div className="flex items-center gap-2">
 
@@ -93,7 +84,7 @@ export default function Header() {
               onClick={() =>
                 setSearchOpen((prev) => !prev)
               }
-              className="p-1.5 text-gray-500 transition-colors hover:text-[#970747] md:hidden"
+              className="p-1.5 text-gray-500 transition hover:text-[#970747] md:hidden"
             >
               <Search size={20} />
             </button>
@@ -104,7 +95,7 @@ export default function Header() {
           {isAuthenticated && (
             <Link
               href="/wishlist"
-              className="relative hidden p-1.5 text-gray-500 transition-colors hover:text-[#970747] sm:flex"
+              className="relative hidden p-1.5 text-gray-500 transition hover:text-[#970747] sm:flex"
             >
               <Heart size={20} />
 
@@ -121,7 +112,7 @@ export default function Header() {
           {isAuthenticated && (
             <Link
               href="/cart"
-              className="relative hidden p-1.5 text-gray-500 transition-colors hover:text-[#970747] sm:flex"
+              className="relative hidden p-1.5 text-gray-500 transition hover:text-[#970747] sm:flex"
             >
               <ShoppingBag size={20} />
 
@@ -163,7 +154,7 @@ export default function Header() {
             onClick={() =>
               setMobileOpen((prev) => !prev)
             }
-            className="p-1.5 text-gray-600 transition-colors hover:text-[#970747] lg:hidden"
+            className="p-1.5 text-gray-600 transition hover:text-[#970747] lg:hidden"
           >
             {mobileOpen ? (
               <X size={22} />
@@ -173,7 +164,8 @@ export default function Header() {
           </button>
         </div>
       </div>
-            {/* Mobile Search */}
+
+      {/* Mobile Search */}
 
       {!isAuthPage && searchOpen && (
         <div className="px-4 pb-3 md:hidden">

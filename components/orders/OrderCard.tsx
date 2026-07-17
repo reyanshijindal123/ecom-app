@@ -12,9 +12,17 @@ interface Props {
 
 export default function OrderCard({ order }: Props) {
   const firstItem = order.items[0];
+  if (!firstItem) {
+  return (
+    <div className="bg-white rounded-3xl p-6">
+      <p>No items found in this order.</p>
+    </div>
+  );
+}
   const previewItems = order.items.slice(0, 3);
   const remainingItems = order.items.length - 3;
-  const orderDate = (order as any).createdAt ?? (order as any).date ?? "Unknown date";
+  const orderDate =
+    (order as any).createdAt ?? (order as any).date ?? "Unknown date";
 
   return (
     <div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm hover:shadow-xl transition-all duration-300">
@@ -25,13 +33,12 @@ export default function OrderCard({ order }: Props) {
             <Link
               key={item.id}
               href={`/products/${item.id}`}
-              className="relative h-20 w-20 rounded-xl border border-gray-200 bg-gray-50 overflow-hidden">
-            
+              className="relative h-20 w-20 rounded-xl border border-gray-200 bg-gray-50 overflow-hidden"
+            >
               <Image
-                src={item.image}
-                alt={item.title}
-                fill
-                className="object-contain p-2"
+              src={item.image}
+              alt={item.title}
+              fill className="object-contain p-2"
               />
             </Link>
           ))}
@@ -59,8 +66,8 @@ export default function OrderCard({ order }: Props) {
             <div>
               <Link
                 href={`/products/${firstItem.id}`}
-                className="text-xl font-bold text-gray-900 hover:text-[#970747] transition">
-              
+                className="text-xl font-bold text-gray-900 hover:text-[#970747] transition"
+              >
                 {firstItem.title}
               </Link>
             </div>
@@ -87,8 +94,8 @@ export default function OrderCard({ order }: Props) {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               href={`/orders/${order.id}`}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#970747] px-6 py-3 font-medium text-white hover:bg-[#7a0538] transition">
-            
+              className="inline-flex items-center gap-2 rounded-xl bg-[#970747] px-6 py-3 font-medium text-white hover:bg-[#7a0538] transition"
+            >
               View Details
               <ArrowRight size={16} />
             </Link>

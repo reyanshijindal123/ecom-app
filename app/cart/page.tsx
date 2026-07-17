@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useCartStore, useUIStore } from '@/store';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Lock, Tag } from 'lucide-react';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import DeleteConfirmModal from '@/components/ui/ConfirmModal';
-import { INR } from '@/lib/utils';
-import { toast } from 'sonner';
-import { useAuthStore } from '@/store';
-import { useRouter } from 'next/navigation';
+import { useCartStore, useUIStore } from "@/store";
+import Image from "next/image";
+import Link from "next/link";
+import {Trash2,Plus,Minus,ShoppingBag,ArrowRight,Lock,Tag,} from "lucide-react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import DeleteConfirmModal from "@/components/ui/ConfirmModal";
+import { INR } from "@/lib/utils";
+import { toast } from "sonner";
+import { useAuthStore } from "@/store";
+import { useRouter } from "next/navigation";
 
 /* ── Empty state ─────────────────────────────────────────────────────────── */
 function EmptyCart() {
@@ -18,14 +18,18 @@ function EmptyCart() {
       {/* Bag with 0 badge */}
       <div className="relative mb-8">
         <div className="w-28 h-28 bg-pink-50 rounded-full flex items-center justify-center">
-          <ShoppingBag size={48} className="text-[#970747]/25" strokeWidth={1.5} />
+          <ShoppingBag
+            size={48}
+            className="text-[#970747]/25"
+            strokeWidth={1.5}
+          />
         </div>
-        {/* <div className="absolute -top-1 -right-1 bg-gray-900 text-white rounded-full w-9 h-9 flex items-center justify-center text-base font-black shadow-md">
-          0
-        </div> */}
+        
       </div>
 
-      <h2 className="text-2xl font-black text-gray-900 mb-2">No items in your cart</h2>
+      <h2 className="text-2xl font-black text-gray-900 mb-2">
+        No items in your cart
+      </h2>
       <p className="text-gray-500 text-sm max-w-xs leading-relaxed mb-8">
         Your cart is empty. Browse our collection and add something you love.
       </p>
@@ -42,23 +46,24 @@ function EmptyCart() {
 
 /* ── Cart with items */
 function CartItems() {
-  const { items, updateQuantity, clearCart, totalItems, totalPrice } = useCartStore();
+  const { items, updateQuantity, clearCart, totalItems, totalPrice } =
+    useCartStore();
   const router = useRouter();
-const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-const checkLogin = () => {
-  if (!isAuthenticated) {
-    toast.error('Please login first!', {
-      description: 'Login to manage your cart.',
-      action: {
-        label: 'Login',
-        onClick: () => router.push('/login'),
-      },
-    });
-    return false;
-  }
-  return true;
-};
+  const checkLogin = () => {
+    if (!isAuthenticated) {
+      toast.error("Please login first!", {
+        description: "Login to manage your cart.",
+        action: {
+          label: "Login",
+          onClick: () => router.push("/login"),
+        },
+      });
+      return false;
+    }
+    return true;
+  };
   const { setDeleteConfirmId } = useUIStore();
   const subtotal = totalPrice();
   const shipping = subtotal * 83 > 3999 ? 0 : 99;
@@ -73,13 +78,13 @@ const checkLogin = () => {
       <div className="lg:col-span-2 space-y-3">
         <div className="flex items-center justify-between mb-1">
           <h2 className="font-black text-gray-900 text-lg">
-            {totalItems()} {totalItems() === 1 ? 'Item' : 'Items'}
+            {totalItems()} {totalItems() === 1 ? "Item" : "Items"}
           </h2>
           <button
-            onClick={() => { 
-              if(!checkLogin()) return;
+            onClick={() => {
+              if (!checkLogin()) return;
               clearCart();
-              toast.error('Cart cleared');
+              toast.error("Cart cleared");
             }}
             className="text-xs text-red-400 hover:text-red-600 transition-colors font-medium"
           >
@@ -87,16 +92,23 @@ const checkLogin = () => {
           </button>
         </div>
 
-        {items.map((item) => (
+        {items.map((item,index) => (
           <div
-            key={`${item.id}-${item.size}`}
+          
+            key={index}
             className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-3 sm:gap-4"
           >
             <Link
               href={`/products/${item.id}`}
               className="relative w-20 h-20 bg-gray-50 rounded-xl overflow-hidden shrink-0 hover:opacity-80 transition-opacity"
             >
-              <Image src={item.image} alt={item.title} fill className="object-contain p-2" sizes="80px" />
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-contain p-2"
+                sizes="80px"
+              />
             </Link>
 
             <div className="flex-1 min-w-0">
@@ -107,7 +119,9 @@ const checkLogin = () => {
                 {item.title}
               </Link>
               <div className="flex items-center gap-2 mt-0.5">
-                <p className="text-[11px] text-[#970747] font-semibold capitalize">{item.category}</p>
+                <p className="text-[11px] text-[#970747] font-semibold capitalize">
+                  {item.category}
+                </p>
                 {item.size && (
                   <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium">
                     Size: {item.size}
@@ -136,10 +150,12 @@ const checkLogin = () => {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-base font-black text-gray-900">{INR(item.price * item.quantity)}</span>
+                  <span className="text-base font-black text-gray-900">
+                    {INR(item.price * item.quantity)}
+                  </span>
                   <button
                     onClick={() => {
-                      if(!checkLogin()) return;
+                      if (!checkLogin()) return;
                       setDeleteConfirmId(item.id);
                     }}
                     className="text-gray-300 hover:text-red-400 transition-colors p-1 rounded-lg hover:bg-red-50"
@@ -159,14 +175,18 @@ const checkLogin = () => {
             placeholder="Enter coupon code"
             className="flex-1 text-sm bg-transparent focus:outline-none text-gray-600 placeholder:text-gray-300"
           />
-          <button className="text-xs font-bold text-[#970747] hover:underline">Apply</button>
+          <button className="text-xs font-bold text-[#970747] hover:underline">
+            Apply
+          </button>
         </div>
       </div>
 
       {/* Order summary */}
       <div className="lg:col-span-1">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sticky top-20">
-          <h3 className="font-black text-gray-900 text-base mb-4">Order Summary</h3>
+          <h3 className="font-black text-gray-900 text-base mb-4">
+            Order Summary
+          </h3>
 
           <div className="space-y-2.5 text-sm border-b border-gray-100 pb-4 mb-4">
             <div className="flex justify-between text-gray-600">
@@ -175,8 +195,14 @@ const checkLogin = () => {
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Shipping</span>
-              <span className={shipping === 0 ? 'text-green-600 font-semibold' : 'font-semibold'}>
-                {shipping === 0 ? 'FREE' : `₹${shipping}`}
+              <span
+                className={
+                  shipping === 0
+                    ? "text-green-600 font-semibold"
+                    : "font-semibold"
+                }
+              >
+                {shipping === 0 ? "FREE" : `₹${shipping}`}
               </span>
             </div>
             <div className="flex justify-between text-gray-600">
@@ -187,12 +213,13 @@ const checkLogin = () => {
 
           <div className="flex justify-between font-black text-gray-900 text-base mb-5">
             <span>Total</span>
-            <span>₹{Math.round(grand).toLocaleString('en-IN')}</span>
+            <span>₹{Math.round(grand).toLocaleString("en-IN")}</span>
           </div>
 
           {shipping > 0 && (
             <div className="bg-green-50 rounded-xl p-2.5 mb-4 text-xs text-green-700 text-center">
-              Add {INR((3999 - subtotal * 83) / 83)} more for <strong>FREE shipping</strong> 🎉
+              Add {INR((3999 - subtotal * 83) / 83)} more for{" "}
+              <strong>FREE shipping</strong> 🎉
             </div>
           )}
 
