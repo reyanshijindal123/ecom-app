@@ -9,14 +9,13 @@ import Image from "next/image";
 
 import { ArrowLeft, Package } from "lucide-react";
 
-
-
 export default function OrderDetailsPage() {
   const { id } = useParams();
 
   const router = useRouter();
 
   const orders = useOrderStore((state) => state.orders);
+  console.log(orders);
 
   const addItem = useCartStore((state) => state.addItem);
 
@@ -63,12 +62,6 @@ export default function OrderDetailsPage() {
       <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            {/*  <p className="text-sm font-semibold uppercase tracking-wide text-[#970747]">
-
-              Order Details
-
-            </p>
- */}
             <div className="mb-2">
               <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-[#970747]">
                 Order Details
@@ -78,16 +71,11 @@ export default function OrderDetailsPage() {
                 Order <span className="text-[#970747]">#{order.id}</span>
               </h1>
             </div>
-
-                      
           </div>
-          
         </div>
       </div>
-      
-      <div
-       
-      >
+
+      <div>
         <div className="flex items-center justify-between my-8">
           <h2 className="text-2xl font-bold">Ordered Items</h2>
 
@@ -95,9 +83,9 @@ export default function OrderDetailsPage() {
         </div>
 
         <div className="space-y-6">
-          {order.items.map((item: any) => (
+          {order.items.map((item: any,index) => (
             <div
-              key={item.id}
+              key={`${item.id}-${item.size ?? "nosize"}-${index}`}
               className="flex flex-col md:flex-row gap-6 rounded-2xl border border-black-100 p-5 "
             >
               {/* Image */}
@@ -157,102 +145,6 @@ export default function OrderDetailsPage() {
           ))}
         </div>
       </div>
-{/* 
-      <div className="mt-8 rounded-3xl border border-gray-200 bg-white p-8 shadow-sm">
-        <h2 className="mb-8 text-2xl font-bold">Order Tracking</h2>
-
-        <OrderTimeline status={order.status} /> */}
-        {/* Bottom Cards */}
-
-        {/* <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          
-
-          <div className="rounded-3xl border border-black-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-5 text-xl font-bold">Delivery Address</h2>
-
-            <div className="space-y-2 text-gray-600">
-              <p className="font-semibold text-gray-900">
-                {order.address.name}
-              </p>
-
-              <p>{order.address.street}</p>
-
-              <p>
-                {order.address.city}, {order.address.state}
-              </p>
-
-              <p>{order.address.pincode}</p>
-
-              <p>{order.address.phone}</p>
-            </div>
-          </div>
-
-      
-
-          <div className="rounded-3xl border border-black-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-5 text-xl font-bold">Payment Details</h2>
-
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm text-gray-500">Method</p>
-
-                <p className="font-semibold">{order.paymentMethod}</p>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-500">Status</p>
-
-                <span className="rounded-full bg-green-100 px-3 py-1 text-green-700 font-semibold">
-                  {order.paymentStatus}
-                </span>
-              </div>
-            </div>
-          </div>
-
-  
-
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h2 className="mb-5 text-xl font-bold">Price Details</h2>
-
-            <div className="space-y-4">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-
-                <span>{INR(order.subtotal)}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>Shipping</span>
-
-                <span>{INR(order.shipping)}</span>
-              </div>
-
-              <div className="flex justify-between">
-                <span>GST</span>
-
-                <span>{INR(order.tax)}</span>
-              </div>
-
-              <hr />
-
-              <div className="flex justify-between text-lg font-bold">
-                <span>Total</span>
-
-                <span>{INR(order.total)}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
- */}
-
-
-
-
-
-        
-      </div>
-    
+    </div>
   );
 }
