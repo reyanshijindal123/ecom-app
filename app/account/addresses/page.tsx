@@ -31,18 +31,17 @@ export default function AddressesPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-5 py-10">
-      
       {/* Header */}
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          
-          <h1 className="text-3xl font-black text-gray-900 sm:text-4xl">My Addresses</h1>
-          
+          <h1 className="text-3xl font-black text-gray-900 sm:text-4xl">
+            My Addresses
+          </h1>
+
           <p className="mt-2 max-w-md text-sm text-gray-500 sm:text-base">
             Manage your saved delivery addresses.
           </p>
         </div>
-        
 
         <button
           onClick={() => {
@@ -60,23 +59,19 @@ export default function AddressesPage() {
         <div className="mt-10 rounded-3xl border border-dashed border-pink-200 bg-pink-50/40 px-6 py-16 text-center">
           <h2 className="text-2xl font-bold">No Address Found</h2>
 
-          <p className="mt-3 text-gray-500">
-            Add your first delivery address.
-          </p>
+          <p className="mt-3 text-gray-500">Add your first delivery address.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           {addresses.map((address) => (
             <div
               key={address.id}
-              className="rounded-3xl border border-gray-200bg-white p-6 shadow-sm transition-all duration-300 hover:- translate-y-1 hover: shadow-xl">
-            
+              className="rounded-3xl border border-gray-200bg-white p-6 shadow-sm transition-all duration-300 hover:- translate-y-1 hover: shadow-xl"
+            >
               {/* Name + Default Badge */}
               <div className="flex justify-between items-start">
                 <div>
-                  <h2 className="font-bold text-lg">
-                    {address.fullName}
-                  </h2>
+                  <h2 className="font-bold text-lg">{address.fullName}</h2>
 
                   {address.isDefault && (
                     <span className="inline-block mt-2 text-xs bg-[#970747]/10 text-[#970747] px-2 py-1 rounded-full">

@@ -5,13 +5,9 @@ interface Props {
   setSearch: (value: string) => void;
 }
 
-export default function OrderSearch({
-  search,
-  setSearch,
-}: Props) {
+export default function OrderSearch({ search, setSearch }: Props) {
   return (
     <div className="mb-6">
-
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -23,7 +19,6 @@ export default function OrderSearch({
           focus:ring-2 focus:ring-pink-500
         "
       />
-
     </div>
   );
 }

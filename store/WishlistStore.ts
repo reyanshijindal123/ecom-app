@@ -23,6 +23,6 @@ export const useWishlistStore = create<WishlistStore>()(
     }),
     {
       name: "velvet-wishlist",
-    }
-  )
+    },
+  ),
 );

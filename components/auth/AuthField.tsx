@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface FieldProps {
   label: string;
@@ -27,9 +27,7 @@ export default function Field({
           className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-350 pointer-events-none"
         />
 
-        <div className="[&>input]:pl-10">
-          {children}
-        </div>
+        <div className="[&>input]:pl-10">{children}</div>
       </div>
 
       {error && (

@@ -38,7 +38,7 @@ export const useAddressStore = create<AddressStore>()(
       updateAddress: (address) =>
         set((state) => ({
           addresses: state.addresses.map((a) =>
-            a.id === address.id ? address : a
+            a.id === address.id ? address : a,
           ),
         })),
 
@@ -57,6 +57,6 @@ export const useAddressStore = create<AddressStore>()(
     }),
     {
       name: "velvet-addresses",
-    }
-  )
+    },
+  ),
 );

@@ -12,29 +12,20 @@ const emptyAddress: Address = {
 };
 
 export default function CheckoutAddresses() {
-  const [shipping, setShipping] =
-    useState<Address>(emptyAddress);
+  const [shipping, setShipping] = useState<Address>(emptyAddress);
 
-  const [billing, setBilling] =
-    useState<Address>(emptyAddress);
+  const [billing, setBilling] = useState<Address>(emptyAddress);
 
-  const [sameAddress, setSameAddress] =
-    useState(true);
+  const [sameAddress, setSameAddress] = useState(true);
 
-  const updateShipping = (
-    field: keyof Address,
-    value: string
-  ) => {
+  const updateShipping = (field: keyof Address, value: string) => {
     setShipping((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const updateBilling = (
-    field: keyof Address,
-    value: string
-  ) => {
+  const updateBilling = (field: keyof Address, value: string) => {
     setBilling((prev) => ({
       ...prev,
       [field]: value,
@@ -44,9 +35,7 @@ export default function CheckoutAddresses() {
   const handleSubmit = () => {
     const payload = {
       shippingAddress: shipping,
-      billingAddress: sameAddress
-        ? shipping
-        : billing,
+      billingAddress: sameAddress ? shipping : billing,
     };
 
     console.log(payload);
@@ -54,7 +43,6 @@ export default function CheckoutAddresses() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 p-4 lg:p-8">
-
       <AddressForm
         title="Shipping Address"
         data={shipping}
@@ -62,24 +50,18 @@ export default function CheckoutAddresses() {
       />
 
       <div className="rounded-xl border bg-white p-5 shadow-sm">
-
         <label className="flex cursor-pointer items-center gap-3">
-
           <input
             type="checkbox"
             checked={sameAddress}
-            onChange={(e) =>
-              setSameAddress(e.target.checked)
-            }
+            onChange={(e) => setSameAddress(e.target.checked)}
             className="h-5 w-5 accent-blue-600"
           />
 
           <span className="text-sm font-medium">
             Billing address is same as shipping address
           </span>
-
         </label>
-
       </div>
 
       {!sameAddress && (

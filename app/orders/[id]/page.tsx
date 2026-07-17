@@ -83,7 +83,7 @@ export default function OrderDetailsPage() {
         </div>
 
         <div className="space-y-6">
-          {order.items.map((item: any,index) => (
+          {order.items.map((item: any, index) => (
             <div
               key={`${item.id}-${item.size ?? "nosize"}-${index}`}
               className="flex flex-col md:flex-row gap-6 rounded-2xl border border-black-100 p-5 "

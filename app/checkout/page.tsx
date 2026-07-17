@@ -17,27 +17,28 @@ import { Step, AddressForm } from "@/types/checkout";
 import { cn } from "@/lib/utils";
 import { getAddressFromPincode } from "@/lib/pincode";
 import { card, text, layout, btn } from "@/lib/styles";
-import { Package,CreditCard,Smartphone} from "lucide-react";
+import { Package, CreditCard, Smartphone } from "lucide-react";
+import RazorpayButton from "@/components/payment/RazorpayButton";
 
 const PAYMENT_METHODS = [
   {
     id: "cod",
     label: "Cash on Delivery",
     desc: "Pay with cash upon delivery",
-    icon: Package
+    icon: Package,
   },
   {
     id: "card",
     label: "Credit / Debit Card",
     desc: "Pay using card details",
-    icon: CreditCard
+    icon: CreditCard,
   },
   {
     id: "upi",
     label: "UPI",
     desc: "Pay using UPI",
-    icon: Smartphone
-  }
+    icon: Smartphone,
+  },
 ];
 
 function CheckoutContent() {
@@ -93,48 +94,48 @@ function CheckoutContent() {
   const place = () => {
     const id = Date.now().toString();
 
-   placeOrder({
-  id: crypto.randomUUID(),
+    placeOrder({
+      id: crypto.randomUUID(),
 
-  orderDate: new Date().toLocaleDateString("en-IN"),
+      orderDate: new Date().toLocaleDateString("en-IN"),
 
-  estimatedDelivery: new Date(
-    Date.now() + 5 * 24 * 60 * 60 * 1000
-  ).toLocaleDateString("en-IN"),
+      estimatedDelivery: new Date(
+        Date.now() + 5 * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("en-IN"),
 
-  status: "Processing",
+      status: "Processing",
 
-  paymentMethod: payMethod,
+      paymentMethod: payMethod,
 
-  paymentStatus: "Paid",
+      paymentStatus: "Paid",
 
-  subtotal: discounted,
+      subtotal: discounted,
 
-  shipping: shippingCost,
+      shipping: shippingCost,
 
-  tax,
+      tax,
 
-  total: grand,
+      total: grand,
 
-  address: {
-    name: address.fullName,
-    phone: address.phone,
-    street: `${address.line1} ${address.line2}`,
-    city: address.city,
-    state: address.state,
-    pincode: address.pincode,
-  },
+      address: {
+        name: address.fullName,
+        phone: address.phone,
+        street: `${address.line1} ${address.line2}`,
+        city: address.city,
+        state: address.state,
+        pincode: address.pincode,
+      },
 
-  items: items.map((item) => ({
-    id: item.id,
-    title: item.title,
-    image: item.image,
-    price: item.price,
-    quantity: item.quantity,
-    category: item.category,
-    size: item.size|| undefined,
-  })),
-});
+      items: items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        image: item.image,
+        price: item.price,
+        quantity: item.quantity,
+        category: item.category,
+        size: item.size || undefined,
+      })),
+    });
     clearCart();
 
     setPlacedOrderId(id);
@@ -210,6 +211,7 @@ export default function CheckoutPage() {
         <h1 className={cn(text.pageTitle, "mb-6")}>Checkout</h1>
 
         <CheckoutContent />
+        <RazorpayButton />
       </div>
     </ProtectedRoute>
   );

@@ -1,12 +1,7 @@
 "use client";
 
 import { useFilterStore } from "@/store";
-import {
-  ArrowUpAZ,
-  IndianRupee,
-  Star,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowUpAZ, IndianRupee, Star, CheckCircle2 } from "lucide-react";
 
 const options = [
   {
@@ -82,9 +77,7 @@ export default function ProductSorting() {
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold">
-                      {option.label}
-                    </h3>
+                    <h3 className="text-base font-bold">{option.label}</h3>
 
                     <p className="text-sm text-gray-500">
                       {option.description}
@@ -93,10 +86,7 @@ export default function ProductSorting() {
                 </div>
 
                 {sort === option.value && (
-                  <CheckCircle2
-                    size={24}
-                    className="text-[#970747]"
-                  />
+                  <CheckCircle2 size={24} className="text-[#970747]" />
                 )}
               </div>
             </button>

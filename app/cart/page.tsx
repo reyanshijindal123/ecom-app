@@ -3,7 +3,15 @@
 import { useCartStore, useUIStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link";
-import {Trash2,Plus,Minus,ShoppingBag,ArrowRight,Lock,Tag,} from "lucide-react";
+import {
+  Trash2,
+  Plus,
+  Minus,
+  ShoppingBag,
+  ArrowRight,
+  Lock,
+  Tag,
+} from "lucide-react";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DeleteConfirmModal from "@/components/ui/ConfirmModal";
 import { INR } from "@/lib/utils";
@@ -24,7 +32,6 @@ function EmptyCart() {
             strokeWidth={1.5}
           />
         </div>
-        
       </div>
 
       <h2 className="text-2xl font-black text-gray-900 mb-2">
@@ -92,9 +99,8 @@ function CartItems() {
           </button>
         </div>
 
-        {items.map((item,index) => (
+        {items.map((item, index) => (
           <div
-          
             key={index}
             className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex gap-3 sm:gap-4"
           >

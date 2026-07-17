@@ -291,13 +291,13 @@ export default function ProductDetailPage() {
                 )}
               </p>
               <div className="flex gap-2 flex-wrap">
-               {sizes.map(s => (
-  <button
-    key={s}
-    onClick={() => {
-      if (!checkLogin()) return;
-      setSelectedSize(s);
-    }}
+                {sizes.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => {
+                      if (!checkLogin()) return;
+                      setSelectedSize(s);
+                    }}
                     className={`px-3 py-1.5 rounded-lg text-sm font-semibold border-2 transition-all ${selectedSize === s ? "border-[#970747] bg-[#970747] text-white" : "border-gray-200 hover:border-[#970747] text-gray-600"}`}
                   >
                     {s}

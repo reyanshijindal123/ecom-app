@@ -13,12 +13,12 @@ interface Props {
 export default function OrderCard({ order }: Props) {
   const firstItem = order.items[0];
   if (!firstItem) {
-  return (
-    <div className="bg-white rounded-3xl p-6">
-      <p>No items found in this order.</p>
-    </div>
-  );
-}
+    return (
+      <div className="bg-white rounded-3xl p-6">
+        <p>No items found in this order.</p>
+      </div>
+    );
+  }
   const previewItems = order.items.slice(0, 3);
   const remainingItems = order.items.length - 3;
   const orderDate =
@@ -36,9 +36,10 @@ export default function OrderCard({ order }: Props) {
               className="relative h-20 w-20 rounded-xl border border-gray-200 bg-gray-50 overflow-hidden"
             >
               <Image
-              src={item.image}
-              alt={item.title}
-              fill className="object-contain p-2"
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-contain p-2"
               />
             </Link>
           ))}

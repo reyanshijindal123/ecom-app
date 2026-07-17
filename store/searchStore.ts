@@ -14,10 +14,10 @@ export const useSearchStore = create<SearchStore>()(
 
       addSearch: (term) =>
         set((state) => ({
-          history: [
-            term,
-            ...state.history.filter((h) => h !== term),
-          ].slice(0, 10),
+          history: [term, ...state.history.filter((h) => h !== term)].slice(
+            0,
+            10,
+          ),
         })),
 
       clearHistory: () =>
@@ -28,6 +28,6 @@ export const useSearchStore = create<SearchStore>()(
 
     {
       name: "velvet-search",
-    }
-  )
+    },
+  ),
 );

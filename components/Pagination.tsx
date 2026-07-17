@@ -24,9 +24,7 @@ export default function Pagination({
           key={i}
           onClick={() => onPageChange(i + 1)}
           className={`w-10 h-10 rounded ${
-            currentPage === i + 1
-              ? 'bg-[#970747] text-white'
-              : 'border'
+            currentPage === i + 1 ? "bg-[#970747] text-white" : "border"
           }`}
         >
           {i + 1}
