@@ -19,6 +19,6 @@ export const useOrderStore = create<OrderStore>()(
     }),
     {
       name: "velvet-orders",
-    }
-  )
+    },
+  ),
 );

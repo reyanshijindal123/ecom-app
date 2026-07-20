@@ -1,5 +1,5 @@
-'use client';
-import { Toaster } from 'sonner';
+"use client";
+import { Toaster } from "sonner";
 
 export function ToastProvider() {
   return (
@@ -7,10 +7,10 @@ export function ToastProvider() {
       position="top-right"
       toastOptions={{
         style: {
-          background: '#fff',
-          border: '1px solid #f3e8f0',
-          borderRadius: '12px',
-          fontFamily: 'system-ui, sans-serif',
+          background: "#fff",
+          border: "1px solid #f3e8f0",
+          borderRadius: "12px",
+          fontFamily: "system-ui, sans-serif",
         },
       }}
     />

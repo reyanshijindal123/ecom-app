@@ -39,6 +39,6 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "velvet-auth",
-    }
-  )
+    },
+  ),
 );

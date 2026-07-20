@@ -1,14 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
 
 export default function Logo() {
   return (
-    <Link
-      href="/"
-      className="inline-flex items-center gap-2.5 group"
-    >
+    <Link href="/" className="inline-flex items-center gap-2.5 group">
       <div className="w-10 h-10 rounded-xl bg-[#970747] flex items-center justify-center shadow-lg shadow-[#970747]/25 group-hover:scale-105 transition-transform">
         <ShoppingBag size={18} className="text-white" />
       </div>

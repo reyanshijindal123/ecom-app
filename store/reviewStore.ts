@@ -27,6 +27,6 @@ export const useReviewStore = create<ReviewStore>()(
     }),
     {
       name: "velvet-reviews",
-    }
-  )
+    },
+  ),
 );

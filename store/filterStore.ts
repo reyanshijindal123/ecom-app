@@ -1,11 +1,6 @@
-
 import { create } from "zustand";
 export type SortOption =
-  | "title-asc"
-  | "title-desc"
-  | "price-asc"
-  | "price-desc"
-  | string;
+  "title-asc" | "title-desc" | "price-asc" | "price-desc" | string;
 
 export interface FilterState {
   category: string;

@@ -1,32 +1,29 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { Lock, Eye, EyeOff, X } from 'lucide-react';
+import { useState } from "react";
+import { toast } from "sonner";
+import { Lock, Eye, EyeOff, X } from "lucide-react";
 
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
-export default function ChangePasswordModal({
-  open,
-  onClose,
-}: Props) {
+export default function ChangePasswordModal({ open, onClose }: Props) {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   if (!open) return null;
 
   const resetFields = () => {
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
 
     setShowCurrent(false);
     setShowNew(false);
@@ -40,17 +37,17 @@ export default function ChangePasswordModal({
 
   const handleSubmit = () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      toast.error('Please fill all fields.');
+      toast.error("Please fill all fields.");
       return;
     }
 
     if (newPassword.length < 6) {
-      toast.error('Password must be at least 6 characters.');
+      toast.error("Password must be at least 6 characters.");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      toast.error('Passwords do not match.');
+      toast.error("Passwords do not match.");
       return;
     }
 
@@ -60,8 +57,8 @@ export default function ChangePasswordModal({
 
     // Show success toast
     setTimeout(() => {
-      toast.success('Password updated successfully!', {
-        description: 'Your password has been changed.',
+      toast.success("Password updated successfully!", {
+        description: "Your password has been changed.",
       });
     }, 200);
   };
@@ -69,7 +66,6 @@ export default function ChangePasswordModal({
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl">
-
         {/* Header */}
         <div className="flex items-center justify-between border-b p-5">
           <h2 className="flex items-center gap-2 text-xl font-bold text-gray-900">
@@ -87,7 +83,6 @@ export default function ChangePasswordModal({
 
         {/* Body */}
         <div className="space-y-5 p-6">
-
           {/* Current Password */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -96,7 +91,7 @@ export default function ChangePasswordModal({
 
             <div className="relative">
               <input
-                type={showCurrent ? 'text' : 'password'}
+                type={showCurrent ? "text" : "password"}
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password"
@@ -121,7 +116,7 @@ export default function ChangePasswordModal({
 
             <div className="relative">
               <input
-                type={showNew ? 'text' : 'password'}
+                type={showNew ? "text" : "password"}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
@@ -146,7 +141,7 @@ export default function ChangePasswordModal({
 
             <div className="relative">
               <input
-                type={showConfirm ? 'text' : 'password'}
+                type={showConfirm ? "text" : "password"}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm new password"
@@ -162,12 +157,10 @@ export default function ChangePasswordModal({
               </button>
             </div>
           </div>
-
         </div>
 
         {/* Footer */}
         <div className="flex justify-end gap-3 border-t bg-gray-50 p-5 rounded-b-2xl">
-
           <button
             onClick={handleClose}
             className="rounded-xl border border-gray-300 px-5 py-2 font-medium text-gray-700 hover:bg-gray-100 transition"
@@ -181,9 +174,7 @@ export default function ChangePasswordModal({
           >
             Update Password
           </button>
-
         </div>
-
       </div>
     </div>
   );

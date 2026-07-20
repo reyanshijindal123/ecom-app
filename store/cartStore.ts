@@ -30,7 +30,7 @@ export const useCartStore = create<CartStore>()(
       addItem: (product, size) => {
         set((state) => {
           const existing = state.items.find(
-            (i) => i.id === product.id && i.size === size
+            (i) => i.id === product.id && i.size === size,
           );
 
           if (existing) {
@@ -38,7 +38,7 @@ export const useCartStore = create<CartStore>()(
               items: state.items.map((i) =>
                 i.id === product.id && i.size === size
                   ? { ...i, quantity: i.quantity + 1 }
-                  : i
+                  : i,
               ),
             };
           }
@@ -62,8 +62,7 @@ export const useCartStore = create<CartStore>()(
         })),
 
       updateQuantity: (id, quantity) => {
-        const isAuthenticated =
-          useAuthStore.getState().isAuthenticated;
+        const isAuthenticated = useAuthStore.getState().isAuthenticated;
 
         if (!isAuthenticated) return;
 
@@ -79,7 +78,7 @@ export const useCartStore = create<CartStore>()(
                   ...i,
                   quantity,
                 }
-              : i
+              : i,
           ),
         }));
       },
@@ -89,20 +88,13 @@ export const useCartStore = create<CartStore>()(
           items: [],
         }),
 
-      totalItems: () =>
-        get().items.reduce(
-          (sum, i) => sum + i.quantity,
-          0
-        ),
+      totalItems: () => get().items.reduce((sum, i) => sum + i.quantity, 0),
 
       totalPrice: () =>
-        get().items.reduce(
-          (sum, i) => sum + i.price * i.quantity,
-          0
-        ),
+        get().items.reduce((sum, i) => sum + i.price * i.quantity, 0),
     }),
     {
       name: "velvet-cart",
-    }
-  )
+    },
+  ),
 );

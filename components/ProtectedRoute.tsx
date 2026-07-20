@@ -1,17 +1,15 @@
-'use client';
+"use client";
 
-import { useAuthStore } from '@/store';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { Lock } from 'lucide-react';
+import { useAuthStore } from "@/store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Lock } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-export default function ProtectedRoute({
-  children,
-}: ProtectedRouteProps) {
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated } = useAuthStore();
   const router = useRouter();
 
@@ -25,7 +23,7 @@ export default function ProtectedRoute({
     if (!hydrated) return;
 
     if (!isAuthenticated) {
-      router.push('/login?redirect=' + window.location.pathname);
+      router.push("/login?redirect=" + window.location.pathname);
     }
   }, [hydrated, isAuthenticated, router]);
 
@@ -41,9 +39,7 @@ export default function ProtectedRoute({
             <Lock className="text-[#970747]" size={28} />
           </div>
 
-          <p className="text-gray-500 text-sm">
-            Redirecting to login...
-          </p>
+          <p className="text-gray-500 text-sm">Redirecting to login...</p>
         </div>
       </div>
     );

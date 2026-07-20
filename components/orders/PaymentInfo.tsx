@@ -14,27 +14,18 @@ export default function PaymentInfo({ total }: PaymentInfoProps) {
           <CreditCard className="h-5 w-5 text-pink-600" />
         </div>
 
-        <h2 className="text-xl font-semibold">
-          Payment Details
-        </h2>
+        <h2 className="text-xl font-semibold">Payment Details</h2>
       </div>
 
       <div className="space-y-5">
-
         <div className="flex items-center justify-between">
-          <span className="text-gray-500">
-            Payment Method
-          </span>
+          <span className="text-gray-500">Payment Method</span>
 
-          <span className="font-semibold">
-            Cash on Delivery
-          </span>
+          <span className="font-semibold">Cash on Delivery</span>
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-gray-500">
-            Payment Status
-          </span>
+          <span className="text-gray-500">Payment Status</span>
 
           <span className="flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
             <BadgeCheck size={16} />
@@ -43,32 +34,23 @@ export default function PaymentInfo({ total }: PaymentInfoProps) {
         </div>
 
         <div className="flex items-center justify-between">
-          <span className="text-gray-500">
-            Transaction ID
-          </span>
+          <span className="text-gray-500">Transaction ID</span>
 
-          <span className="font-mono text-sm">
-            TXN-2026-001
-          </span>
+          <span className="font-mono text-sm">TXN-2026-001</span>
         </div>
 
         <hr />
 
         <div className="flex items-center justify-between">
-
           <div className="flex items-center gap-2">
             <Receipt size={18} className="text-pink-600" />
-            <span className="font-semibold">
-              Total Paid
-            </span>
+            <span className="font-semibold">Total Paid</span>
           </div>
 
           <span className="text-2xl font-bold text-pink-600">
             ₹{total.toFixed(2)}
           </span>
-
         </div>
-
       </div>
     </div>
   );

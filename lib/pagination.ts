@@ -1,7 +1,7 @@
 export function paginate<T>(
   items: T[],
   currentPage: number,
-  itemsPerPage: number
+  itemsPerPage: number,
 ) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
 

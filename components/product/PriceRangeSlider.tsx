@@ -36,7 +36,8 @@ export default function PriceRangeSlider() {
 
       {/* Selected Range */}
       <div className="mt-3 text-base font-semibold text-gray-900">
-        {INR(minPrice)} - {maxPrice >= MAX_PRICE ? `${INR(MAX_PRICE)}+` : INR(maxPrice)}
+        {INR(minPrice)} -{" "}
+        {maxPrice >= MAX_PRICE ? `${INR(MAX_PRICE)}+` : INR(maxPrice)}
       </div>
     </div>
   );

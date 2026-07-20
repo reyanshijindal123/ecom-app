@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 // Shimmer animation via inline style to avoid Tailwind purge issues
 const shimmer = `
@@ -11,8 +11,8 @@ const shimmer = `
 function SkeletonBox({ className }: { className?: string }) {
   return (
     <div
-      className={`rounded bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 bg-[length:200%_100%] ${className ?? ''}`}
-      style={{ animation: 'shimmer 1.6s ease-in-out infinite' }}
+      className={`rounded bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 bg-[length:200%_100%] ${className ?? ""}`}
+      style={{ animation: "shimmer 1.6s ease-in-out infinite" }}
     />
   );
 }

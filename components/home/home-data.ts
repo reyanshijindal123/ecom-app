@@ -1,10 +1,4 @@
-import {
-  Truck,
-  Shield,
-  RefreshCw,
-  Star,
-} from "lucide-react";
-
+import { Truck, Shield, RefreshCw, Star } from "lucide-react";
 
 export const features = [
   {
@@ -29,34 +23,33 @@ export const features = [
   },
 ];
 
-
 export const categories = [
   {
     name: "Women's",
     slug: "women's clothing",
-    emoji:"👗",
-    bg:"from-pink-50 to-rose-100",
-    accent:"text-rose-700",
+    emoji: "👗",
+    bg: "from-pink-50 to-rose-100",
+    accent: "text-rose-700",
   },
   {
-    name:"Men's",
-    slug:"men's clothing",
-    emoji:"👔",
-    bg:"from-slate-50 to-blue-100",
-    accent:"text-blue-700",
+    name: "Men's",
+    slug: "men's clothing",
+    emoji: "👔",
+    bg: "from-slate-50 to-blue-100",
+    accent: "text-blue-700",
   },
   {
-    name:"Electronics",
-    slug:"electronics",
-    emoji:"📱",
-    bg:"from-violet-50 to-purple-100",
-    accent:"text-purple-700",
+    name: "Electronics",
+    slug: "electronics",
+    emoji: "📱",
+    bg: "from-violet-50 to-purple-100",
+    accent: "text-purple-700",
   },
   {
-    name:"Jewellery",
-    slug:"jewelery",
-    emoji:"💎",
-    bg:"from-amber-50 to-yellow-100",
-    accent:"text-amber-700",
+    name: "Jewellery",
+    slug: "jewelery",
+    emoji: "💎",
+    bg: "from-amber-50 to-yellow-100",
+    accent: "text-amber-700",
   },
 ];

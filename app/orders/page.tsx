@@ -12,7 +12,7 @@ import { useState } from "react";
 export default function OrdersPage() {
   const orders = useOrderStore((state) => state.orders) as unknown as Order[];
 
-  console.log("ordere id:", orders)
+  console.log("ordere id:", orders);
 
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");

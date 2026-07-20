@@ -8,19 +8,11 @@ interface Props {
 }
 
 export default function OrderStats({ orders }: Props) {
+  const delivered = orders.filter((o) => o.status === "Delivered").length;
 
-  const delivered = orders.filter(
-    (o) => o.status === "Delivered"
-  ).length;
+  const processing = orders.filter((o) => o.status === "Processing").length;
 
-  const processing = orders.filter(
-    (o) => o.status === "Processing"
-  ).length;
-
-  const shipped = orders.filter(
-    (o) => o.status === "Shipped"
-  ).length;
-
+  const shipped = orders.filter((o) => o.status === "Shipped").length;
 
   const stats = [
     {
@@ -45,10 +37,8 @@ export default function OrderStats({ orders }: Props) {
     },
   ];
 
-
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-
       {stats.map((stat) => {
         const Icon = stat.icon;
 
@@ -57,20 +47,14 @@ export default function OrderStats({ orders }: Props) {
             key={stat.title}
             className="rounded-2xl bg-white border p-5 shadow-sm"
           >
-            <Icon className="text-pink-600 mb-3" size={28}/>
+            <Icon className="text-pink-600 mb-3" size={28} />
 
-            <p className="text-gray-500 text-sm">
-              {stat.title}
-            </p>
+            <p className="text-gray-500 text-sm">{stat.title}</p>
 
-            <h3 className="text-3xl font-bold">
-              {stat.value}
-            </h3>
-
+            <h3 className="text-3xl font-bold">{stat.value}</h3>
           </div>
         );
       })}
-
     </div>
   );
 }

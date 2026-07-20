@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-type DeviceType = 'mobile' | 'tablet' | 'desktop';
+type DeviceType = "mobile" | "tablet" | "desktop";
 
 export function useWindowDimensions() {
   const [windowSize, setWindowSize] = useState({
@@ -21,15 +21,15 @@ export function useWindowDimensions() {
     // Set initial size
     handleResize();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getDeviceType = (): DeviceType => {
-    if (windowSize.width < 640) return 'mobile';
-    if (windowSize.width < 1024) return 'tablet';
-    return 'desktop';
+    if (windowSize.width < 640) return "mobile";
+    if (windowSize.width < 1024) return "tablet";
+    return "desktop";
   };
 
   return {

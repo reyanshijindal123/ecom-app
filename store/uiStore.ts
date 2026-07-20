@@ -13,7 +13,6 @@ interface UIStore {
   toggleDrawer: () => void;
 }
 
-
 export const useUIStore = create<UIStore>((set) => ({
   deleteConfirmId: null,
 
@@ -22,14 +21,12 @@ export const useUIStore = create<UIStore>((set) => ({
       deleteConfirmId: id,
     }),
 
-
   clearCartModal: false,
 
   setClearCartModal: (open) =>
     set({
       clearCartModal: open,
     }),
-
 
   isDrawerOpen: false,
 
@@ -38,12 +35,10 @@ export const useUIStore = create<UIStore>((set) => ({
       isDrawerOpen: true,
     }),
 
-
   closeDrawer: () =>
     set({
       isDrawerOpen: false,
     }),
-
 
   toggleDrawer: () =>
     set((state) => ({

@@ -4,12 +4,7 @@ import { categories } from "./home-data";
 
 export default function CategorySection() {
   return (
-    <section
-      className="
-max-w-7xl mx-auto
-px-4 py-10
-"
-    >
+    <section className="max-w-7xl mx-auto px-4 py-10">
       <div className="flex justify-between mb-5">
         <h2 className="text-2xl font-black">Shop by Category</h2>
 
@@ -18,34 +13,16 @@ px-4 py-10
         </Link>
       </div>
 
-      <div
-        className="
-grid grid-cols-2 md:grid-cols-4 gap-4
-"
-      >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {categories.map((c) => (
           <Link
             key={c.slug}
             href={`/products?category=${encodeURIComponent(c.slug)}`}
-            className={`
-bg-gradient-to-br
-${c.bg}
-rounded-2xl
-p-5
-hover:-translate-y-1
-transition
-`}
+            className={`bg-gradient-to-br ${c.bg} rounded-2xlp-5hover:-translate-y-1 transition`}
           >
             <div className="text-3xl">{c.emoji}</div>
 
-            <h3
-              className={`
-font-bold
-${c.accent}
-`}
-            >
-              {c.name}
-            </h3>
+            <h3 className={` font-bold ${c.accent}`}>{c.name}</h3>
 
             <p className="text-xs">Explore →</p>
           </Link>

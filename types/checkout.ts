@@ -1,35 +1,26 @@
-import {
-  LucideIcon
-} from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
-export type Step =
-  | 'address'
-  | 'payment'
-  | 'success';
-
+export type Step = "address" | "payment" | "success";
 
 export type PaymentMethod = {
-  id:string;
-  icon:any;
-  label:string;
-  desc:string;
+  id: string;
+  icon: any;
+  label: string;
+  desc: string;
 };
 
-
 export interface AddressForm {
+  fullName: string;
 
-  fullName:string;
+  phone: string;
 
-  phone:string;
+  line1: string;
 
-  line1:string;
+  line2: string;
 
-  line2:string;
+  city: string;
 
-  city:string;
+  state: string;
 
-  state:string;
-
-  pincode:string;
-
+  pincode: string;
 }
